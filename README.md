@@ -1,13 +1,13 @@
 # Mido
 
-[General Infromation](general_info)
-[Business Requirments](business_requirments)
-[Endpoints](endpoints)
-[Database Model](db)
-[Software Technologies](software_technologies)
-[Setup](setup)
-[Screenshots](screenshots)
-[Contacts](contacts)
+1. [General Infromation](#general_info)
+2. [Business Requirments](#business_requirments)
+3. [Endpoints](#endpoints)
+4. [Database Model](#db)
+5. [Software Technologies](#software_technologies)
+6. [Setup](#setup)
+7. [Screenshots](#screenshots)
+8. [Contacts](#contacts)
 
 ---
 
