@@ -5,6 +5,8 @@ import com.mido.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -29,7 +31,15 @@ public class UserService {
         return user;
     }
 
-    public void removeUser(Integer id) {
-        userRepo.deleteUser(id);
+    public void removeUser(String username) {
+        userRepo.deleteUser(username);
+    }
+
+    public List<User> searchUsers(String role, String username) {
+        return userRepo.searchUsers(role, username);
+    }
+
+    public User findByName(String username) {
+        return userRepo.findByUsername(username);
     }
 }

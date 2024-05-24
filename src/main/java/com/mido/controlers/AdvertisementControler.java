@@ -47,7 +47,7 @@ public class AdvertisementControler {
     @PatchMapping("/api/advertisement/{id}")
     public ResponseEntity<AdvertisementDto> updateAdvertisement(@PathVariable Integer id, @RequestBody AdvertisementDto adDto) {
         Advertisement ad = adMapper.mapFromDto(adDto);
-        ad.setId(id);
+        ad.setId(id);//not sure about this line
         return new ResponseEntity<>(adMapper.mapToDto(adService.editAdvertisement(ad)), HttpStatus.OK);
     }
 

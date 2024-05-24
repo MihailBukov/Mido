@@ -13,7 +13,7 @@ public class UserRatingRepository {
 
     }
 
-    public void deleteUserRating(UserRating rating) {
+    public void deleteUserRating(Integer id) {
 
     }
 }
