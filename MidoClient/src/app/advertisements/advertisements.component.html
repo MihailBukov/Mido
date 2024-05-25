@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Show all advertisements -->
+    <div class="search-container">
+        <input type="text" placeholder="Country" [(ngModel)]="country">
+        <input type="text" placeholder="City" [(ngModel)]="city">
+        <input type="text" placeholder="Breed" [(ngModel)]="breed">
+        <input type="number" placeholder="Age" [(ngModel)]="age">
+        <input type="text" placeholder="Gender" [(ngModel)]="gender">
+        <button class="search-button" (click)="searchAdvertisements()">Search</button>
+    <div class="advertisements-container">
+        <div class="options">
+            <button class="options-button">Add advertisement</button>
+        </div>
+        <div *ngFor="let ad of ads">
+            <div class="advertisement-box">
+                <h4>{{ad.title}}</h4>
+                <p>{{ad.description}}</p>
+                <p>{{ad.timeOfCreation}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

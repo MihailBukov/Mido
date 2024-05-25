@@ -20,21 +20,21 @@ public class Advertisement {
     private String dogName;
     private Integer dogAge;
     private Double dogKg;
-    private String dogBride;
+    private String dogBreed;
     private String dogGender;
     private String dogColor;
 
     public Advertisement() {
     }
 
-    public Advertisement(String title, LocalDateTime timeOfCreation, String description, String dogName, Integer dogAge, Double dogKg, String dogBride, String dogGender, String dogColor) {
+    public Advertisement(String title, LocalDateTime timeOfCreation, String description, String dogName, Integer dogAge, Double dogKg, String dogBreed, String dogGender, String dogColor) {
         this.title = title;
         this.timeOfCreation = timeOfCreation;
         this.description = description;
         this.dogName = dogName;
         this.dogAge = dogAge;
         this.dogKg = dogKg;
-        this.dogBride = dogBride;
+        this.dogBreed = dogBreed;
         this.dogGender = dogGender;
         this.dogColor = dogColor;
     }

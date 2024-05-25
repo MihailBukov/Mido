@@ -12,7 +12,7 @@ public class AdvertisementDto {
     private String dogName;
     private Integer dogAge;
     private Double dogKg;
-    private String dogBride;
+    private String dogBreed;
     private String dogGender;
     private String dogColor;
 }
