@@ -30,4 +30,16 @@ export class ClientComponent {
       this.photo = photo;
       this.description = description;
     }
+
+    message() {
+      // functionallity to message an user
+    }
+
+    rate() {
+      // functionallity to rate an user
+    } 
+
+    comment() {
+      // functionallity to leave a comment about the user
+    }
 }

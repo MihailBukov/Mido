@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Show all advertisements -->
+    <div class="search-container">
+        <input type="text" placeholder="Country" [(ngModel)]="country">
+        <input type="text" placeholder="City" [(ngModel)]="city">
+        <input type="text" placeholder="Breed" [(ngModel)]="breed">
+        <input type="number" placeholder="Age" [(ngModel)]="age">
+        <input type="text" placeholder="Gender" [(ngModel)]="gender">
+        <button class="search-button" (click)="searchAdvertisements()">Search</button>
     <div class="advertisements-container">
         <div class="options">
             <button class="options-button">Add advertisement</button>

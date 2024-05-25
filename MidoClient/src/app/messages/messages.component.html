@@ -1,1 +1,25 @@
-<p>messages works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+</head>
+<body>
+    <div class="messages-container">
+        <div class="message" *ngFor="let message of messages">
+          <div class="message-info">
+            <span class="sender">{{message.sender.name}}</span> to <span class="receiver">{{message.receiver.name}}</span>
+          </div>
+          <div class="message-text">
+            <p>{{message.text}}</p>
+          </div>
+        </div>
+    </div>
+      
+      <div class="new-message-container">
+        <input type="text" [(ngModel)]="newMessageText" placeholder="Type your message here">
+        <button (click)="sendMessage()">Send</button>
+      </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { UserComponent } from '../user/user.component';
 
@@ -10,14 +11,29 @@ import { UserComponent } from '../user/user.component';
 })
 export class MessagesComponent {
   id?: number;
-  text: string;
+  message: string;
   sender: UserComponent;
   receiver: UserComponent;
+  messages: MessagesComponent[] = [];
 
-  constructor(text: string, sender: UserComponent, receiver: UserComponent, id?: number){
+  constructor(message: string, sender: UserComponent, receiver: UserComponent, id?: number){
     this.id = id;
-    this.text = text;
+    this.message = message;
     this.sender = sender;
     this.receiver = receiver;
+  }
+
+  ngOnInit() {
+    // everytime the component is used this method will start
+  }
+
+  sendMessage() {
+    //example
+    if (this.message.trim() === '') return;
+
+    const newMessage = new MessagesComponent(this.message, this.sender, this.receiver);
+
+    this.messages.push(newMessage);
+    this.message = '';
   }
 }

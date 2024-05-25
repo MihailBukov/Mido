@@ -16,9 +16,10 @@ export class PetShelterComponent {
   address: string;
   description: string;
   photo: number;
+  isVerified: boolean;
 
   constructor(name: string, country: string, city: string, capacity: number,
-    address: string, description: string, photo: number, id?: number) {
+    address: string, description: string, photo: number, isVerified:boolean, id?: number) {
       this.id = id;
       this.name = name;
       this.country = country;
@@ -27,5 +28,18 @@ export class PetShelterComponent {
       this.address = address;
       this.description = description;
       this.photo = photo;
+      this.isVerified = isVerified;
+    }
+
+    message() {
+      // functionallity to message an user
+    }
+
+    rate() {
+      // functionallity to rate an user
+    } 
+
+    comment() {
+      // functionallity to leave a comment about the user
     }
 }
