@@ -1,20 +1,8 @@
 package com.mido.repositories;
 
-import com.mido.models.Client;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class ClientRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    public void addClient(Client client) {
+public interface ClientRepository extends JpaRepository {
 
-    }
-
-    public void editClient(Client client) {
-
-    }
-
-    public void deleteClient(Client client) {
-
-    }
 }

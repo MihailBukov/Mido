@@ -1,19 +1,7 @@
 package com.mido.repositories;
 
-import com.mido.models.UserComment;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class UserCommentRepository {
-    public void addComment(UserComment comment) {
+public interface UserCommentRepository extends JpaRepository {
 
-    }
-
-    public void editComment(UserComment comment) {
-
-    }
-
-    public void deleteComment(UserComment comment) {
-
-    }
 }

@@ -19,13 +19,4 @@ public class AdvertisementComment {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User writtenBy;
-
-    public AdvertisementComment() {
-    }
-
-    public AdvertisementComment(Advertisement advertisement, String comment, User writtenBy) {
-        this.advertisement = advertisement;
-        this.comment = comment;
-        this.writtenBy = writtenBy;
-    }
 }

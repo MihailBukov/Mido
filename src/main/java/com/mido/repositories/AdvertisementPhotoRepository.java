@@ -1,16 +1,7 @@
 package com.mido.repositories;
 
-import com.mido.models.AdvertisementPhoto;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class AdvertisementPhotoRepository {
+public interface AdvertisementPhotoRepository extends JpaRepository {
 
-    public void addPhoto(AdvertisementPhoto photo) {
-
-    }
-
-    public void deletePhoto(AdvertisementPhoto photo) {
-
-    }
 }

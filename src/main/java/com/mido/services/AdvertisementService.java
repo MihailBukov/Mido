@@ -4,20 +4,17 @@ import com.mido.models.Advertisement;
 import com.mido.models.User;
 import com.mido.repositories.AdvertisementRepository;
 import com.mido.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdvertisementService {
 
     private final AdvertisementRepository adRepo;
-
-    @Autowired
-    public AdvertisementService(AdvertisementRepository adRepo) {
-        this.adRepo = adRepo;
-    }
 
     public Advertisement createAdvertisement(Advertisement ad) {
         adRepo.addAdvertisement(ad);
