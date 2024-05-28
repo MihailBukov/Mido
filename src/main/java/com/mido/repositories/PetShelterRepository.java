@@ -1,19 +1,7 @@
 package com.mido.repositories;
 
-import com.mido.models.PetShelter;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class PetShelterRepository {
-    public void addPetShelter(PetShelter petShelter) {
+public interface PetShelterRepository extends JpaRepository {
 
-    }
-
-    public void editPetShelter(PetShelter petShelter) {
-
-    }
-
-    public void deletePetShelter(PetShelter petShelter) {
-
-    }
 }

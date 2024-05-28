@@ -1,31 +1,7 @@
 package com.mido.repositories;
 
-import com.mido.models.Advertisement;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface AdvertisementRepository extends JpaRepository {
 
-
-@Repository
-public class AdvertisementRepository {
-
-    public void addAdvertisement(Advertisement ad) {
-        //implementation
-    }
-
-    public void editAdvertisement(Advertisement ad) {
-        //implementation
-    }
-
-    public void deleteAdvertisement(Integer id) {
-        //implementation
-    }
-
-    public Advertisement findById(Integer id) {
-        return new Advertisement();
-    }
-
-    public List<Advertisement> searchAdvertisements(String country, String city, String breed, Integer age, String gender) {
-        return null;
-    }
 }

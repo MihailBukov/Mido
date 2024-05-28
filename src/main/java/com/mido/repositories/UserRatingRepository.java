@@ -1,19 +1,6 @@
 package com.mido.repositories;
 
-import com.mido.models.UserRating;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class UserRatingRepository {
-    public void addUserRating(UserRating rating) {
-
-    }
-
-    public void editUserRating(UserRating rating) {
-
-    }
-
-    public void deleteUserRating(Integer id) {
-
-    }
+public interface UserRatingRepository extends JpaRepository {
 }

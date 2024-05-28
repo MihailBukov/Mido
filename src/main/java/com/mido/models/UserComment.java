@@ -19,13 +19,4 @@ public class UserComment {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User writtenBy;
-
-    public UserComment() {
-    }
-
-    public UserComment(User writtenTo, String comment, User writtenBy) {
-        this.writtenTo = writtenTo;
-        this.comment = comment;
-        this.writtenBy = writtenBy;
-    }
 }
