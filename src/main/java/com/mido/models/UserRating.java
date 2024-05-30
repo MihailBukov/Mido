@@ -5,10 +5,13 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "user_rating")
 public class UserRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "rating")
     private Integer rating;
 
     @OneToOne

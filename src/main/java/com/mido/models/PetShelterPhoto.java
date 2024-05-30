@@ -5,11 +5,14 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "pet_shelter_photo")
 public class PetShelterPhoto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer photo;
+
+    @Column(name = "photo")
+    private String photo;
 
     @OneToOne
     @JoinColumn(name = "pet_shelter_id", nullable = false)
