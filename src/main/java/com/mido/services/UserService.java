@@ -18,21 +18,21 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        userRepo.addUser(user);
+        userRepo.save(user);
         return user;
     }
 
     public User findById(Integer id) {
-        return userRepo.findById(id);
+        return userRepo.getReferenceById(id);
     }
 
     public User updateUser(User user) {
-        userRepo.editUser(user);
+        userRepo.save(user);
         return user;
     }
 
     public void removeUser(String username) {
-        userRepo.deleteUser(username);
+        userRepo.delete(username);
     }
 
     public List<User> searchUsers(String role, String username) {

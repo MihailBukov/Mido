@@ -17,21 +17,21 @@ public class AdvertisementService {
     private final AdvertisementRepository adRepo;
 
     public Advertisement createAdvertisement(Advertisement ad) {
-        adRepo.addAdvertisement(ad);
+        adRepo.save(ad);
         return ad;
     }
 
     public Advertisement findById(Integer id) {
-        return adRepo.findById(id);
+        return (Advertisement) adRepo.getReferenceById(id);
     }
 
     public Advertisement editAdvertisement(Advertisement ad) {
-        adRepo.editAdvertisement(ad);
+        adRepo.save(ad);
         return ad;
     }
 
     public void removeAdvertisement(Integer id) {
-        adRepo.deleteAdvertisement(id);
+        adRepo.delete(id);
     }
 
     public List<Advertisement> searchAdvertisements(String country, String city, String breed, Integer age, String gender){

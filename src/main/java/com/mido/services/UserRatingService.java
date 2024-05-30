@@ -16,17 +16,17 @@ public class UserRatingService {
     }
 
     public UserRating addUserRating(UserRating rating) {
-        userRatingRepository.addUserRating(rating);
+        userRatingRepository.save(rating);
         return rating;
     }
 
     public UserRating editUserRating(UserRating rating) {
-        userRatingRepository.editUserRating(rating);
+        userRatingRepository.save(rating);
         return rating;
     }
 
     //removeUserRating
     public void removeUserRating(Integer id) {
-        userRatingRepository.deleteUserRating(id);
+        userRatingRepository.delete(id);
     }
 }

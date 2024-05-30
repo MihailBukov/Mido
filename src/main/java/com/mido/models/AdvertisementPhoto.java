@@ -5,11 +5,13 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "advertisements_photos")
 public class AdvertisementPhoto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "advertisement_photo")
     private String photo;
 
     @ManyToOne

@@ -6,17 +6,17 @@
     <title>Client</title>
 </head>
 <body>
-    <p>{{photo}}<!-- First a photo should be added --></p>
+    <p>{{client.photo}}<!-- First a photo should be added --></p>
     <h1>Personal Information</h1>
     <div class="personal-info">
-        <p><strong>First Name: </strong>{{firstName}}</p>
-        <p><strong>Last Name: </strong>{{secondName}}</p>
-        <p><strong>Country: </strong>{{country}}</p>
-        <p><strong>City: </strong>{{city}}</p>
+        <p><strong>First Name: </strong>{{client.firstName}}</p>
+        <p><strong>Last Name: </strong>{{client.secondName}}</p>
+        <p><strong>Country: </strong>{{client.country}}</p>
+        <p><strong>City: </strong>{{client.city}}</p>
     </div>
     <div class="description">
         <p><strong>Description:</strong></p>
-        <p>{{description}}</p>
+        <p>{{client.description}}</p>
     </div>
     <div class="options">
         <button class="options-button" (click)="message()">Message</button>

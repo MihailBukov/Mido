@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "advertisements_comments")
 public class AdvertisementComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +15,7 @@ public class AdvertisementComment {
     @JoinColumn(name = "advertisement_id", nullable = false)
     private Advertisement advertisement;
 
+    @Column(name = "comment", length = 300)
     private String comment;
 
     @OneToOne
