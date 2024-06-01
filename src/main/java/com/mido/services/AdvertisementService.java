@@ -22,7 +22,7 @@ public class AdvertisementService {
     }
 
     public Advertisement findById(Integer id) {
-        return (Advertisement) adRepo.getReferenceById(id);
+        return null;
     }
 
     public Advertisement editAdvertisement(Advertisement ad) {
@@ -31,10 +31,11 @@ public class AdvertisementService {
     }
 
     public void removeAdvertisement(Integer id) {
-        adRepo.delete(id);
+        //adRepo.delete(id);
     }
 
     public List<Advertisement> searchAdvertisements(String country, String city, String breed, Integer age, String gender){
-        return adRepo.searchAdvertisements(country, city, breed, age, gender);
+        //return adRepo.searchAdvertisements(country, city, breed, age, gender);
+        return null;
     }
 }
