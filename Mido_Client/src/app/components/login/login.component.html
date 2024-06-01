@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" required placeholder="Username">
+            <small style="color:red" *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
+                <div *ngIf="loginForm.controls['username'].errors?.['required']">Username is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" required placeholder="Password">
+            <small style="color:red" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                <div *ngIf="loginForm.controls['password'].errors?.['required']">Password is required.</div>
+            </small>
+          </div>
+          <button type="submit">Login</button>
+          <div class="register">
+            <a href="/register">Not a member? Register now.</a>
+          </div>
+        </form>
+      </div>
+</body>
+</html>
