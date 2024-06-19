@@ -27,8 +27,8 @@
           <div class="input-group">
             <label for="password">Password</label>
             <input type="password" id="password" formControlName="password">
-            <small style="color:red" *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)">
-                <div *ngIf="registerForm.controls['username'].errors?.['required']">Username is required.</div>
+            <small style="color:red" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+                <div *ngIf="registerForm.controls['password'].errors?.['password']">Password is required.</div>
             </small>
           </div>
           <div class="input-group">

@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface PetShelter {
     id?: number;
     name: string;
@@ -8,4 +10,5 @@ export interface PetShelter {
     description: string;
     photo: number;
     isVerified: boolean;
+    user: User;
 }

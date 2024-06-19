@@ -1,1 +1,64 @@
-<p>pet-shelter works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Pet Shelter</title>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Create Pet Shelter User</h2>
+        <form [formGroup]="petShelterForm" (ngSubmit)="createShelter()">
+          <div class="input-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" formControlName="name">
+            <small style="color:red" *ngIf="petShelterForm.controls['name'].invalid && (petShelterForm.controls['name'].dirty || petShelterForm.controls['name'].touched)">
+                <div *ngIf="petShelterForm.controls['name'].errors?.['required']">Name is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="country">Country</label>
+            <input type="country" id="country" formControlName="country">
+            <small style="color:red" *ngIf="petShelterForm.controls['country'].invalid && (petShelterForm.controls['country'].dirty || petShelterForm.controls['country'].touched)">
+                <div *ngIf="petShelterForm.controls['country'].errors?.['required']">Country is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="city">City</label>
+            <input type="city" id="city" formControlName="city">
+            <small style="color:red" *ngIf="petShelterForm.controls['city'].invalid && (petShelterForm.controls['city'].dirty || petShelterForm.controls['city'].touched)">
+                <div *ngIf="petShelterForm.controls['city'].errors?.['required']">City is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="capacity">Capacity</label>
+            <input type="capacity" id="capacity" formControlName="capacity">
+            <small style="color:red" *ngIf="petShelterForm.controls['capacity'].invalid && (petShelterForm.controls['capacity'].dirty || petShelterForm.controls['capacity'].touched)">
+                <div *ngIf="petShelterForm.controls['capacity'].errors?.['required']">Capacity is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="address">Address</label>
+            <input type="address" id="address" formControlName="address">
+            <small style="color:red" *ngIf="petShelterForm.controls['address'].invalid && (petShelterForm.controls['address'].dirty || petShelterForm.controls['address'].touched)">
+                <div *ngIf="petShelterForm.controls['address'].errors?.['required']">Address is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="description">Description</label>
+            <input type="description" id="description" formControlName="description">
+          </div>
+          <div class="input-group">
+            <label for="photo">Photo</label>
+            <input type="photo" id="photo" formControlName="photo">
+          </div>
+          <div class="input-group">
+            <label for="verification">Verification</label>
+            <input type="verification" id="verification" formControlName="verification">
+          </div>
+          <button type="submit">Create Pet Shelter</button>
+        </form>
+      </div>
+</body>
+</html>
+
