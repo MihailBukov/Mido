@@ -1,1 +1,67 @@
-<p>client works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta firstName="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Client</title>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Create Client User</h2>
+        <form [formGroup]="petShelterForm" (ngSubmit)="createShelter()">
+          <div class="input-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName">
+            <small style="color:red" *ngIf="petShelterForm.controls['firstName'].invalid && (petShelterForm.controls['firstName'].dirty || petShelterForm.controls['firstName'].touched)">
+                <div *ngIf="petShelterForm.controls['firstName'].errors?.['required']">Name is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="middleName">Middle Name</label>
+            <input type="middleName" id="middleName" formControlName="middleName">
+            <small style="color:red" *ngIf="petShelterForm.controls['middleName'].invalid && (petShelterForm.controls['middleName'].dirty || petShelterForm.controls['middleName'].touched)">
+                <div *ngIf="petShelterForm.controls['middleName'].errors?.['required']">Country is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="lastName">Last Name</label>
+            <input type="lastName" id="lastName" formControlName="lastName">
+            <small style="color:red" *ngIf="petShelterForm.controls['lastName'].invalid && (petShelterForm.controls['lastName'].dirty || petShelterForm.controls['lastName'].touched)">
+                <div *ngIf="petShelterForm.controls['lastName'].errors?.['required']">City is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="age">Age</label>
+            <input type="age" id="age" formControlName="age">
+            <small style="color:red" *ngIf="petShelterForm.controls['age'].invalid && (petShelterForm.controls['age'].dirty || petShelterForm.controls['age'].touched)">
+                <div *ngIf="petShelterForm.controls['age'].errors?.['required']">Capacity is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="country">Country</label>
+            <input type="country" id="country" formControlName="country">
+            <small style="color:red" *ngIf="petShelterForm.controls['country'].invalid && (petShelterForm.controls['country'].dirty || petShelterForm.controls['country'].touched)">
+                <div *ngIf="petShelterForm.controls['country'].errors?.['required']">Address is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="city">City</label>
+            <input type="city" id="city" formControlName="city">
+            <small style="color:red" *ngIf="petShelterForm.controls['city'].invalid && (petShelterForm.controls['city'].dirty || petShelterForm.controls['city'].touched)">
+                <div *ngIf="petShelterForm.controls['city'].errors?.['required']">Address is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="photo">Photo</label>
+            <input type="photo" id="photo" formControlName="photo">
+          </div>
+          <div class="input-group">
+            <label for="description">Description</label>
+            <input type="description" id="description" formControlName="description">
+          </div>
+          <button type="submit">Create Client</button>
+        </form>
+      </div>
+</body>
+</html>
+

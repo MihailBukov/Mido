@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<nav class="navbar">
+    <ul>
+        <div *ngIf="isLoggedIn()">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/user">Profile</a></li>
+            <li><a href="/messeges"></a>Messeges</li>
+            <li><a href="/advertisement"></a>Create Advertisement</li>
+            <li><a (click)="logout()"></a>LogOut</li>
+        </div>
+        <div *ngIf="!isLoggedIn()">
+            <li><a href="/login"></a>Log In</li>
+            <li><a href="/register"></a>Register</li>
+        </div>
+    </ul>
+</nav>

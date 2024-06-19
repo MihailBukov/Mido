@@ -44,19 +44,19 @@ export class RegisterComponent implements OnInit{
   register() {
     const userRegistered = { ...this.registerForm.value };
     this.authService.register(userRegistered as User).subscribe(
-      response => {
+      (response: any) => {
         console.log("Registration successfull!")//a display message can also be added
         if(userRegistered.role === "Client") {
           /*
           * go to page for creating a client
           */
-          this.router.navigate(['create_client']);
+          this.router.navigate(['client', userRegistered.username]);
         }
         else {
           /*
           * go to page for creating a pet shelter
           */
-          this.router.navigate(['create_pet_shelter']);
+          this.router.navigate(['pet-shelter', userRegistered.username]);
         }
       },
       error => {
