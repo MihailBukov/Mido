@@ -1,15 +1,13 @@
 package com.mido.services;
 
-import com.mido.models.Client;
 import com.mido.models.Role;
 import com.mido.models.User;
 import com.mido.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -17,8 +15,6 @@ import java.util.NoSuchElementException;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
-    //private final PasswordEncoder passwordEncoder;
 
     @Override
     public User loadUserByUsername(String username) {
@@ -48,7 +44,7 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("Unauthorized to create admin account");
         }
 
-        //userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
+        userToCreate.setPassword(new BCryptPasswordEncoder().encode(userToCreate.getPassword()));
         userRepository.saveAndFlush(userToCreate);
     }
 }
