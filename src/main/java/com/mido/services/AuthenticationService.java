@@ -10,7 +10,6 @@ import com.mido.mappers.UserMapper;
 import com.mido.models.Client;
 import com.mido.models.PetShelter;
 import com.mido.models.User;
-import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,8 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.mido.config.JwtAuthenticationFilter.AUTHORIZATION_HEADER;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +44,7 @@ public class AuthenticationService {
         userService.createUser(userToCreate);
     }
 
-    public void authenticate(AuthenticationRequest request) {
+    public String authenticate(AuthenticationRequest request) {
         String username = request.username();
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -57,10 +54,7 @@ public class AuthenticationService {
         );
 
         User user = userService.loadUserByUsername(username);
-        Cookie cookie = new Cookie(AUTHORIZATION_HEADER, jwtService.generateToken(generateExtraClaims(user), user));
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
+        return jwtService.generateToken(generateExtraClaims(user), user);
     }
 
     public void registerClient(ClientRegisterRequest request) {
