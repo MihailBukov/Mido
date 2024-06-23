@@ -4,7 +4,7 @@ public record PetShelterRegisterRequest(
         String name,
         String country,
         String city,
-        int capacity,
+        Integer capacity,
         String address,
         String description
 ) { }

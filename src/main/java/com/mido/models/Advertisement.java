@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,4 +45,10 @@ public class Advertisement {
 
     @Column(name = "dog_color", length = 20, nullable = false)
     private String dogColor;
+
+    @Column(name = "country", length = 50, nullable = false)
+    private String country;
+
+    @Column(name = "city", length = 50, nullable = false)
+    private String city;
 }

@@ -15,4 +15,6 @@ public class AdvertisementDto {
     private String dogBreed;
     private String dogGender;
     private String dogColor;
+    private String country;
+    private String city;
 }
