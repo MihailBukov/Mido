@@ -5,6 +5,8 @@ import com.mido.dtos.requests.ClientRegisterRequest;
 import com.mido.dtos.requests.FirstStepRegister;
 import com.mido.dtos.requests.PetShelterRegisterRequest;
 import com.mido.services.AuthenticationService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<Void> authenticate(@RequestBody AuthenticationRequest request) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Void> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
+        String jwt = authenticationService.authenticate(request);
+        Cookie cookie = new Cookie("Jwt", jwt);
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 2); // 2 hours
+        response.addCookie(cookie);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
