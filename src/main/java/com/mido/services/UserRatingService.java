@@ -8,6 +8,7 @@ import com.mido.models.UserRating;
 import com.mido.repositories.UserRatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -28,9 +29,8 @@ public class UserRatingService {
     }
 
     public UserRatingDto editUserRating(Long id, UserRatingRequest ratingReq) {
-        UserRating rating = setRatingFromRequest(ratingReq);
         Optional<UserRating> optionalRating = userRatingRepo.findById(id);
-        UserRating editedRating = getEditedRating(optionalRating, rating);
+        UserRating editedRating = getEditedRating(optionalRating, ratingReq);
         userRatingRepo.saveAndFlush(editedRating);
         return ratingMapper.ratingToRatingDto(editedRating);
     }
@@ -44,7 +44,7 @@ public class UserRatingService {
 
         rating.setRating(ratingReq.rating());
 
-        if(ratingReq.userRates() == null || ratingReq.userRated() == null) {
+        if(ratingReq.userRated() == null || ratingReq.userRates() == null) {
             throw new IllegalArgumentException("Usernames are empty");
         }
 
@@ -59,18 +59,18 @@ public class UserRatingService {
         return rating;
     }
 
-    private UserRating getEditedRating(Optional<UserRating> optionalRating, UserRating rating) {
+    private UserRating getEditedRating(Optional<UserRating> optionalRating, UserRatingRequest req) {
         if(optionalRating.isPresent()) {
             UserRating newRating = optionalRating.get();
 
-            if(rating.getRating() != null) {
-                newRating.setRating(rating.getRating());
+            if(req.rating() != null) {
+                newRating.setRating(req.rating());
             }
-            if(rating.getUserRates() != null) {
-                newRating.setUserRates(rating.getUserRates());
+            if(req.userRates() != null) {
+                newRating.setUserRates(userService.loadUserByUsername(req.userRates()));
             }
-            if(rating.getUserRated() != null) {
-                newRating.setUserRated(rating.getUserRated());
+            if(req.userRated() != null) {
+                newRating.setUserRated(userService.loadUserByUsername(req.userRated()));
             }
 
             return newRating;

@@ -25,27 +25,26 @@ public class UserCommentService {
     }
 
     public UserCommentDto editComment(Long id, UserCommentRequest req) {
-        UserComment comment = setCommentFromRequest(req);
         Optional<UserComment> optionalUserComment = userCommentRepository.findById(id);
-        UserComment editedComment = getEditedComment(optionalUserComment, comment);
+        UserComment editedComment = getEditedComment(optionalUserComment, req);
         userCommentRepository.saveAndFlush(editedComment);
         return userCommentMapper.commentToCommentDto(editedComment);
     }
 
-    private UserComment getEditedComment(Optional<UserComment> optionalUserComment, UserComment comment) {
+    private UserComment getEditedComment(Optional<UserComment> optionalUserComment, UserCommentRequest req) {
         if(optionalUserComment.isPresent()) {
             UserComment editedComment = new UserComment();
 
-            if(comment.getComment() != null) {
-                editedComment.setComment(comment.getComment());
+            if(req.comment() != null) {
+                editedComment.setComment(req.comment());
             }
 
-            if(comment.getWrittenBy() != null) {
-                editedComment.setWrittenBy(comment.getWrittenBy());
+            if(req.writtenBy() != null) {
+                editedComment.setWrittenBy(userService.loadUserByUsername(req.writtenBy()));
             }
 
-            if(comment.getWrittenTo() != null) {
-                editedComment.setWrittenTo(comment.getWrittenTo());
+            if(req.writtenTo() != null) {
+                editedComment.setWrittenTo(userService.loadUserByUsername(req.writtenTo()));
             }
 
             return editedComment;
@@ -63,8 +62,8 @@ public class UserCommentService {
 
         newComment.setComment(req.comment());
 
-        if(req.writtenBy() == null || req.writtenTo() == null) {
-            throw new IllegalArgumentException("Username is empty");
+        if(req.writtenTo() == null || req.writtenBy() == null) {
+            throw new IllegalArgumentException("Usernames are empty");
         }
 
         if(userService.loadUserByUsername(req.writtenBy()) == null ||
