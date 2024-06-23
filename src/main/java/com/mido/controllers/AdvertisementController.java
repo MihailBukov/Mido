@@ -1,6 +1,9 @@
 package com.mido.controllers;
 
 import com.mido.dtos.AdvertisementDto;
+import com.mido.dtos.requests.AdvertisementRequest;
+import com.mido.mappers.AdvertisementMapper;
+import com.mido.models.Advertisement;
 import com.mido.services.AdvertisementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,8 @@ public class AdvertisementController {
 
     private final AdvertisementService adService;
 
+    private final AdvertisementMapper adMapper;
+
     @GetMapping()
     public ResponseEntity<List<AdvertisementDto>> searchForAdvertisement(
             @RequestParam(required = false) String country,
@@ -24,21 +29,37 @@ public class AdvertisementController {
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String gender) {
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<AdvertisementDto> ads = adService.searchAdvertisements(country, city, breed, age, gender);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<AdvertisementDto> createAdvertisement(@RequestBody AdvertisementDto adDto) {
+    public ResponseEntity<Void> createAdvertisement(@RequestBody AdvertisementRequest adReq) {
+        adService.createAdvertisement(adReq);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<AdvertisementDto> updateAdvertisement(@PathVariable Integer id, @RequestBody AdvertisementDto adDto) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<AdvertisementDto> updateAdvertisement(@PathVariable Long id, @RequestBody AdvertisementRequest adReq) {
+        AdvertisementDto adDto = adService.editAdvertisement(id, adReq);
+        return new ResponseEntity<>(adDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AdvertisementDto> getAdvertisement(@PathVariable Integer id) {
+    public ResponseEntity<AdvertisementDto> getAdvertisement(@PathVariable Long id) {
+        Advertisement ad = adService.findById(id);
+
+        if (ad == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        AdvertisementDto adDto = adMapper.adToAdDto(ad);
+        return new ResponseEntity<>(adDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAdvertisement(@PathVariable Long id) {
+        adService.removeAdvertisement(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

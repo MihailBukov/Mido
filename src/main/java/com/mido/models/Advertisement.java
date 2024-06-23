@@ -46,4 +46,10 @@ public class Advertisement {
 
     @Column(name = "dog_color", length = 20, nullable = false)
     private String dogColor;
+
+    @Column(name = "country", length = 50, nullable = false)
+    private String country;
+
+    @Column(name = "city", length = 50, nullable = false)
+    private String city;
 }
