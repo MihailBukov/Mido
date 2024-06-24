@@ -1,7 +1,7 @@
 export interface Advertisement {
     id?: number;
     title: string;
-    timeOfCreation: Date;
+    timeOfCreation?: Date;
     description: string;
     dogName: string;
     dogAge: number;
@@ -9,4 +9,5 @@ export interface Advertisement {
     dogBreed: string;
     dogGender: string;
     dogColor: string;
+    photo: number;
 }

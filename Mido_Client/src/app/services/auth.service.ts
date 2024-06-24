@@ -4,6 +4,7 @@ import { User } from '../models/User';
 import { Observable } from 'rxjs';
 import { PetShelter } from '../models/PetShelter';
 import { Client } from '../models/Client';
+import { Advertisement } from '../models/Advertisement';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   /*
   * here are all the services to connect with the backend
   */
-  private baseUrl = '';//should be something else
+  private baseUrl = 'localhost:8080/api';//should be something else
   private loggedIn = false;
 
   constructor(private http: HttpClient) { }
@@ -41,6 +42,5 @@ export class AuthService {
 
   logout() {
     this.loggedIn = false;
-
   }
 }
