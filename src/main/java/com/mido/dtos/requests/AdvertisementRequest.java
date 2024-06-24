@@ -13,5 +13,7 @@ public record AdvertisementRequest(
         String dogGender,
         String dogColor,
         String country,
-        String city
+        String city,
+
+        String createdBy
 ) { }

@@ -17,4 +17,5 @@ public class AdvertisementDto {
     private String dogColor;
     private String country;
     private String city;
+    private String createdBy;
 }

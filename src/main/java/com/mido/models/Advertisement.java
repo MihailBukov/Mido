@@ -51,4 +51,7 @@ public class Advertisement {
 
     @Column(name = "city", length = 50, nullable = false)
     private String city;
+
+    @Column(name = "created_by", length = 100, nullable = false)
+    private String createdBy;
 }
