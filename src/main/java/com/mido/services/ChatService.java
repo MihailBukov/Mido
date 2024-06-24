@@ -14,7 +14,7 @@ public class ChatService {
     private final ChatRepository chatRepository;
 
     public Optional<String> getChatRoomName(String senderUsername, String receiverUsername, boolean createNewChatIfNotExists) {
-        return chatRepository.findBySenderAndReceiver(senderUsername, receiverUsername)
+        return chatRepository.findBySenderUsernameAndReceiverUsername(senderUsername, receiverUsername)
                 .map(Chat::getChatName)
                 .or(() -> {
                     if(createNewChatIfNotExists) {

@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface ChatRepository extends JpaRepository<Chat, Long> {
 
-    Optional<Chat> findBySenderAndReceiver(String senderUsername, String receiverUsername);
+    Optional<Chat> findBySenderUsernameAndReceiverUsername(String senderUsername, String receiverUsername);
 }
