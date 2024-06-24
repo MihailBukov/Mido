@@ -1,2 +1,38 @@
-<p>home works!</p>
-<button type="submit">Log Out</button>
+<div class="home-container">
+    <h1>Mido</h1>
+    <h2>Description of page</h2>
+    <form [formGroup]="searchForm" (ngSubmit)="searchAds()">
+      <div class="search-section">
+        <label for="country">Country</label>
+        <select id="country" formControlName="country">
+          <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+        </select>
+      </div>
+      <div class="search-section">
+        <label for="city">City</label>
+        <select id="city" formControlName="city">
+          <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+        </select>
+      </div>
+      <div class="search-section">
+        <label for="breed">Breed</label>
+        <select id="breed" formControlName="breed">
+          <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
+        </select>
+      </div>
+      <div class="search-section">
+        <label for="age">Age</label>
+        <select id="age" formControlName="age">
+          <option *ngFor="let age of ages" [value]="age">{{age}}</option>
+        </select>
+      </div>
+      <div class="search-section">
+        <label for="gender">Gender</label>
+        <select id="gender" formControlName="gender">
+          <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+        </select>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    <h3>Other information about the page</h3>
+  </div>

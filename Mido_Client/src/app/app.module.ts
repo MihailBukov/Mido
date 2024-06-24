@@ -10,10 +10,12 @@ import { HomeComponent } from './components/home/home.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { RegisterComponent } from './components/register/register.component';
-import { UserComponent } from './components/user/user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NavbarComponent } from './components/navbar/navbar.component'
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { RatingComponent } from './components/rating/rating.component'
 
 @NgModule({
   declarations: [
@@ -26,8 +28,10 @@ import { NavbarComponent } from './components/navbar/navbar.component'
     MessagesComponent,
     PetShelterComponent,
     RegisterComponent,
-    UserComponent,
     NavbarComponent,
+    CreateAdvertisementComponent,
+    CommentComponent,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,
