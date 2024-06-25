@@ -33,7 +33,7 @@ public class UserCommentService {
 
     private UserComment getEditedComment(Optional<UserComment> optionalUserComment, UserCommentRequest req) {
         if(optionalUserComment.isPresent()) {
-            UserComment editedComment = new UserComment();
+            UserComment editedComment = optionalUserComment.get();
 
             if(req.comment() != null) {
                 editedComment.setComment(req.comment());
