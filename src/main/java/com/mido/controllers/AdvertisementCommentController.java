@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/advertisementComment")
@@ -34,6 +36,12 @@ public class AdvertisementCommentController {
     public ResponseEntity<AdvertisementCommentDto> getComment(@PathVariable Long id) {
         AdvertisementCommentDto comment = adCommentService.getComment(id);
         return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+
+    @GetMapping("/comments/{adId}")
+    public ResponseEntity<List<AdvertisementCommentDto>> getAllComments(@PathVariable Long adID) {
+        List<AdvertisementCommentDto> comments = adCommentService.getAllComments(adID);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
