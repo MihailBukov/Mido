@@ -1,6 +1,7 @@
 package com.mido.services;
 
 import com.mido.dtos.AdvertisementCommentDto;
+import com.mido.dtos.AdvertisementDto;
 import com.mido.dtos.requests.AdvertisementCommentRequest;
 import com.mido.mappers.AdvertisementCommentMapper;
 import com.mido.models.AdvertisementComment;
@@ -8,7 +9,9 @@ import com.mido.repositories.AdvertisementCommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -82,6 +85,18 @@ public class AdvertisementCommentService {
 
     public AdvertisementCommentDto getComment(Long id) {
         return adMapper.adCommentToDto(adRepo.findById(id).orElse(null));
+    }
+
+    public List<AdvertisementCommentDto> getAllComments(Long adId) {
+        Optional<List<AdvertisementComment>> commentsOptional = adRepo.findAllByAdvertisementId(adId);
+
+        if (commentsOptional.isPresent()) {
+            return commentsOptional.get().stream()
+                    .map(adMapper::adCommentToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new IllegalArgumentException("Such advertisement id doesn't exist");
+        }
     }
 
     public void deleteComment(Long id) {
