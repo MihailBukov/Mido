@@ -1,5 +1,3 @@
-import { User } from "./User";
-
 export interface Client {
     id?: number;
     firstName: string;
@@ -10,5 +8,4 @@ export interface Client {
     city: string;
     photo: number;
     description: string;
-    user: User;
 }

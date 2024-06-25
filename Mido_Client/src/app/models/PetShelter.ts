@@ -10,5 +10,4 @@ export interface PetShelter {
     description: string;
     photo: number;
     isVerified: boolean;
-    user: User;
 }

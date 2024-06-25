@@ -9,5 +9,7 @@ export interface Advertisement {
     dogBreed: string;
     dogGender: string;
     dogColor: string;
-    photo: number;
+    country: string;
+    city: string;
+    createdBy: string;
 }

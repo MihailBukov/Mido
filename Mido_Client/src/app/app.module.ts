@@ -15,7 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
 import { CommentComponent } from './components/comment/comment.component';
-import { RatingComponent } from './components/rating/rating.component'
+import { RatingComponent } from './components/rating/rating.component';
+import { AdvertisementCommentComponent } from './components/advertisement-comment/advertisement-comment.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { NotificationComponent } from './components/notification/notification.component'
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { RatingComponent } from './components/rating/rating.component'
     CreateAdvertisementComponent,
     CommentComponent,
     RatingComponent,
+    AdvertisementCommentComponent,
+    ChatComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,

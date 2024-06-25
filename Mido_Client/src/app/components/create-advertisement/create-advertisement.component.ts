@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Advertisement } from 'src/app/models/Advertisement';
+import { AdvertisementService } from 'src/app/services/advertisement.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class CreateAdvertisementComponent implements OnInit{
     photo: [0]
   });
 
-  constructor(private fb: FormBuilder, private authService: AuthService,
+  constructor(private fb: FormBuilder, private adService: AdvertisementService,
     private router: Router) {}
 
   ngOnInit(): void {
@@ -32,7 +33,7 @@ export class CreateAdvertisementComponent implements OnInit{
 
   createAd() {
     const ad = { ...this.createAdForm.value };
-    this.authService.createAd(ad as Advertisement).subscribe(
+    this.adService.createAd(ad as Advertisement).subscribe(
       response => {
         console.log("Pet Shelter successfully created!")//a display message can also be added
         this.router.navigate(['home']);

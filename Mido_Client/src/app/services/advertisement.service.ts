@@ -18,7 +18,7 @@ export class AdvertisementService {
   }
 
   createAd(ad: Advertisement): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}`, ad); //this is made up, should be discussed
+    return this.http.post<void>(`${this.baseUrl}`, ad);
   }
 
   editAd(id: number, ad: Advertisement): Observable<Advertisement> {

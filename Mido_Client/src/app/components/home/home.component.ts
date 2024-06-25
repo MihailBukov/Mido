@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AdvertisementService } from 'src/app/services/advertisement.service';
+import { Advertisement } from 'src/app/models/Advertisement';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +18,13 @@ export class HomeComponent implements OnInit{
     gender: [''],
   });
 
-  countries: string[] = ['Country1', 'Country2', 'Country3'];
-  cities: string[] = ['City1', 'City2', 'City3'];
-  breeds: string[] = ['Breed1', 'Breed2', 'Breed3'];
+  countries: string[] = ['Bulgaria'];
+  cities: string[] = ['Sofia', 'Plovdiv', 'Burgas'];
+  breeds: string[] = ['German Shepherd', 'Labrador', 'Staffordshire Bull Terrier', 'Jack Russell Terrier'];
   ages: string[] = ['0-3', '3-6','6-9', 'older'];
   genders: string[] = ['Male', 'Female'];
 
-  constructor(private fb: FormBuilder, private authService: AuthService,
+  constructor(private fb: FormBuilder, private adService: AdvertisementService,
     private router: Router) {}
 
   ngOnInit(): void {
@@ -31,12 +32,12 @@ export class HomeComponent implements OnInit{
 
   searchAds() {
     const search = { ...this.searchForm.value };
-    this.authService.searchAds(search.country ?? '', search.city ?? '', search.breed ?? '',
+    this.adService.searchAds(search.country ?? '', search.city ?? '', search.breed ?? '',
        search.age ?? '', search.gender ?? '').subscribe(
-      response => {
-        console.log("Pet Shelter successfully created!")//a display message can also be added
-        this.router.navigate(['home']);
-      },
+        (response: Advertisement[]) => {
+          const ads = response.values;
+          this.router.navigate(['advertisements', ads]);
+        },
       error => {
         console.log(error)//a display message can also be added
       }

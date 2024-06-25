@@ -1,9 +1,6 @@
-import { Advertisement } from "./Advertisement";
-import { User } from "./User";
-
-export interface AdvertisementComments {
+export interface AdvertisementComment {
     id?: number;
-    ad: Advertisement;
+    advertisementId: number;
     comment: string;
-    writtenBy: User;
+    writtenBy: string;
 }
