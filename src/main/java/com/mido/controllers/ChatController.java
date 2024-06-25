@@ -1,5 +1,6 @@
 package com.mido.controllers;
 
+import com.mido.dtos.ChatDto;
 import com.mido.dtos.requests.MessageRequest;
 import com.mido.models.Message;
 import com.mido.models.Notification;
@@ -22,15 +23,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/chat")
 public class ChatController {
-    private ChatService chatService;
+    private final ChatService chatService;
 
-    private MessageService messageService;
+    private final MessageService messageService;
 
-    private SimpMessagingTemplate messagingTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @GetMapping("/messeges/{senderUsername}/{receiverUsername}")
     public ResponseEntity<List<Message>> findMessages(@PathVariable String senderUsername, @PathVariable String receiverUsername) {
-        return new ResponseEntity<>(messageService.findMessages(senderUsername, receiverUsername), HttpStatus.OK);
+        List<Message> messages = messageService.findMessages(senderUsername, receiverUsername);
+        return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 
     @MessageMapping("/chat")

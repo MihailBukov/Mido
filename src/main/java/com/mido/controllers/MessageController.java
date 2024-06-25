@@ -1,6 +1,7 @@
 package com.mido.controllers;
 
 import com.mido.dtos.MessageDto;
+import com.mido.dtos.requests.MessageRequest;
 import com.mido.models.Message;
 import com.mido.services.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class MessageController {
     private final MessageService messageService;
 
     @PostMapping("/create")
-    public ResponseEntity<MessageDto> createMessage(@RequestBody MessageDto messageDto) {
+    public ResponseEntity<Void> createMessage(@RequestBody MessageRequest messageRequest) {
+        messageService.save(messageRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
