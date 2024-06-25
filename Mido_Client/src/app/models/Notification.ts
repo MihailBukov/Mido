@@ -1,7 +1,6 @@
-export interface Message {
+export interface Notification {
     id?: number;
-    chatName: string;
-    text: string;
     senderUsername: string;
     receiverUsername: string;
+    text: string;
 }

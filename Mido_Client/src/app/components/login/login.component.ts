@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
     */
     this.authService.getUserByUsername(username as string).subscribe (
       response => {
-        if(response.length > 0 && response[0].password === password) {
+        if(response != null && response.password === password) {
           console.log("Successfully loged in.")//should be a display message
           /*
           * navigate to next page

@@ -9,7 +9,6 @@ import { ClientComponent } from './components/client/client.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { authGuard } from './guards/auth.guard';
-import { UserComponent } from './components/user/user.component';
 
 /*
 * routes represent all pages we can go to
@@ -28,14 +27,13 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'advertisement',
+    path: 'advertisement/:id',
     component: AdvertisementComponent,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'advertisements',
     component: AdvertisementsComponent,
-    canActivate: [authGuard]
   },
   {
     path: 'client/:id',
@@ -44,16 +42,11 @@ const routes: Routes = [
   {
     path: 'messages',
     component: MessagesComponent,
-    canActivate: [authGuard]
+    //canActivate: [authGuard]
   },
   {
     path: 'pet-shelter/:id',
     component: PetShelterComponent,
-  },
-  {
-    path: 'user',
-    component: UserComponent,
-    canActivate: [authGuard] // cannot access without login in
   },
   {
     path: '',

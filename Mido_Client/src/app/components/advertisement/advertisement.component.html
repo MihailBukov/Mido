@@ -1,1 +1,60 @@
-<p>advertisement works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mido</title>
+</head>
+<body>
+    <div class="advertisement-details">
+        <h2>Advertisement Details</h2>
+        <p><strong>ID:</strong> {{ ad.id }}</p>
+        <p><strong>Title:</strong> {{ ad.title }}</p>
+        <p><strong>Time of Creation:</strong> {{ ad.timeOfCreation }}</p>
+        <p><strong>Description:</strong> {{ ad.description }}</p>
+        <p><strong>Dog Name:</strong> {{ ad.dogName }}</p>
+        <p><strong>Dog Age:</strong> {{ ad.dogAge }}</p>
+        <p><strong>Dog Weight (kg):</strong> {{ ad.dogKg }}</p>
+        <p><strong>Dog Breed:</strong> {{ ad.dogBreed }}</p>
+        <p><strong>Dog Gender:</strong> {{ ad.dogGender }}</p>
+        <p><strong>Dog Color:</strong> {{ ad.dogColor }}</p>
+        <p><strong>Country:</strong> {{ ad.country }}</p>
+        <p><strong>City:</strong> {{ ad.city }}</p>
+        <p><strong>Created By:</strong> {{ ad.createdBy }}</p>
+    </div>
+
+    <div class="comments">
+        <div *ngIf="comments.length === 0">No comments found.</div>
+        <div *ngFor="let coment of comments" class="comment-card">
+          <p><strong>Written By:</strong> {{ comment.writtenBy }}</p>
+          <p>{{ comment.comment }}</p>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button id="leaveCommentBtn">Leave a Comment</button>
+        <button (click)="viewProfile(ad.createdBy)" id="viewProfileBtn">View User's Profile</button>
+        <button (click)="messageUser(ad.createdBy)" id="messageBtn">Message User</button>
+    </div>
+
+    <div class="form" id="form">
+        <form [formGroup]="createComment" (ngSubmit)="createComment()">
+            <label for="comment">Comment:</label>
+            <input type="text" id="comment" name="comment" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('leaveCommentBtn');
+            const form = document.getElementById('form');
+
+            toggleButton.addEventListener('click', function() {
+            form.classList.toggle('show'); 
+            toggleButton.textContent = form.classList.contains('show') ? 'Hide Form' : 'Show Form';
+            });
+        });
+    </script>
+</body>
+</html>
