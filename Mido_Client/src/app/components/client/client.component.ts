@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from 'src/app/models/Client';
+import { Role } from 'src/app/models/Role';
+import { Status } from 'src/app/models/Status';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -18,13 +20,14 @@ export class ClientComponent implements OnInit{
     age: [0, Validators.required],
     country: ['', Validators.required],
     city: ['', Validators.required],
-    photo: [0],
+    photo: [''],
     description: [''],
     user: this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
       password: ['', Validators.required, Validators.min(5)],
-      role: ['', Validators.required]
+      role: [Role.CLIENT, Validators.required],
+      status: [Status.OFFLINE, Validators.required]
     })
   });
 

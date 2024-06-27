@@ -6,6 +6,6 @@ export interface Client {
     age: number;
     country: string;
     city: string;
-    photo: number;
+    photo: string;
     description: string;
 }
