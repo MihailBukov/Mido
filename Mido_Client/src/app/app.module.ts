@@ -7,18 +7,15 @@ import { AdvertisementComponent } from './components/advertisement/advertisement
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
 import { ClientComponent } from './components/client/client.component';
 import { HomeComponent } from './components/home/home.component';
-import { MessagesComponent } from './components/messages/messages.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
-import { CommentComponent } from './components/comment/comment.component';
-import { RatingComponent } from './components/rating/rating.component';
-import { AdvertisementCommentComponent } from './components/advertisement-comment/advertisement-comment.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { NotificationComponent } from './components/notification/notification.component'
+import { NotificationComponent } from './components/notification/notification.component';
+import { ProfileComponent } from './components/profile/profile.component'
 
 @NgModule({
   declarations: [
@@ -28,22 +25,20 @@ import { NotificationComponent } from './components/notification/notification.co
     AdvertisementsComponent,
     ClientComponent,
     HomeComponent,
-    MessagesComponent,
     PetShelterComponent,
     RegisterComponent,
     NavbarComponent,
     CreateAdvertisementComponent,
-    CommentComponent,
-    RatingComponent,
-    AdvertisementCommentComponent,
     ChatComponent,
     NotificationComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

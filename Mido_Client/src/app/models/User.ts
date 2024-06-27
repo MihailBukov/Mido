@@ -1,3 +1,4 @@
+import { Role } from "./Role";
 import { Status } from "./Status";
 
 export interface User {
@@ -5,6 +6,6 @@ export interface User {
     username: string;
     password: string;
     email: string;
-    role: string;
+    role: Role;
     status: Status;
 }

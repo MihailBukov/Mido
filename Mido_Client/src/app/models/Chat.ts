@@ -1,6 +1,6 @@
 export interface Chat{
     id?: number;
-    chatName: String;
-    senderUsername: String;
-    receiverUsername: String;
+    chatName: string;
+    senderUsername: string;
+    receiverUsername: string;
 }

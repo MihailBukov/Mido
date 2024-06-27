@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PetShelter } from 'src/app/models/PetShelter';
+import { Role } from 'src/app/models/Role';
+import { Status } from 'src/app/models/Status';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -19,13 +21,14 @@ export class PetShelterComponent implements OnInit{
     capacity: [0, Validators.required],
     address: ['', Validators.required],
     description: [''],
-    photo: [0],
+    photo: [''],
     isVerified: [true],
     user: this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
       password: ['', Validators.required, Validators.min(5)],
-      role: ['', Validators.required]
+      role: [Role.PET_SHELTER, Validators.required],
+      status: [Status.OFFLINE, Validators.required]
     })
   })
 

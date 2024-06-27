@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommentComponent } from '../components/comment/comment.component';
-
+import { UserComment } from '../models/UserComment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,16 +11,16 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  getComment(id: number): Observable<CommentComponent> {
-    return this.http.get<CommentComponent>(`${this.baseUrl}/${id}`); 
+  getComment(id: number): Observable<UserComment> {
+    return this.http.get<UserComment>(`${this.baseUrl}/${id}`); 
   }
 
-  createComment(comment: CommentComponent): Observable<void> {
+  createComment(comment: UserComment): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}`, comment);
   }
 
-  editComment(id: number, comment: CommentComponent): Observable<CommentComponent> {
-    return this.http.patch<CommentComponent>(`${this.baseUrl}/${id}`, comment);
+  editComment(id: number, comment: UserComment): Observable<UserComment> {
+    return this.http.patch<UserComment>(`${this.baseUrl}/${id}`, comment);
   } 
 
   deleteComment(id: number): Observable<void> {

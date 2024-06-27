@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AdvertisementCommentComponent } from '../components/advertisement-comment/advertisement-comment.component';
 import { Observable } from 'rxjs';
 import { AdvertisementComment } from '../models/AdvertisementComment';
 

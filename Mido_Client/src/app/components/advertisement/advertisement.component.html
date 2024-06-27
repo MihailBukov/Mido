@@ -34,27 +34,42 @@
     <div class="buttons">
         <button id="leaveCommentBtn">Leave a Comment</button>
         <button (click)="viewProfile(ad.createdBy)" id="viewProfileBtn">View User's Profile</button>
-        <button (click)="messageUser(ad.createdBy)" id="messageBtn">Message User</button>
+        <button id="sendMessageBtn">Message User</button>
     </div>
 
-    <div class="form" id="form">
-        <form [formGroup]="createComment" (ngSubmit)="createComment()">
+    <div class="comment-form" id="form">
+        <form [formGroup]="commentForm" (ngSubmit)="createComment()">
             <label for="comment">Comment:</label>
             <input type="text" id="comment" name="comment" required>
             <button type="submit">Submit</button>
         </form>
     </div>
 
+    <div class="message-form" id="form">
+        <form [formGroup]="messageForm" (ngSubmit)="messageUser(ad.createdBy)">
+            <label for="comment">Message:</label>
+            <input type="text" id="text" name="text" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <script>
-         document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('leaveCommentBtn');
-            const form = document.getElementById('form');
+        document.addEventListener('DOMContentLoaded', function() {
+           const toggleCommentButton = document.getElementById('leaveCommentBtn');
+           const commentForm = document.getElementById('commentForm');
 
-            toggleButton.addEventListener('click', function() {
-            form.classList.toggle('show'); 
-            toggleButton.textContent = form.classList.contains('show') ? 'Hide Form' : 'Show Form';
-            });
-        });
-    </script>
+           toggleCommentButton.addEventListener('click', function() {
+               commentForm.classList.toggle('show'); 
+               toggleCommentButton.textContent = commentForm.classList.contains('show') ? 'Hide Comment Form' : 'Leave a Comment';
+           });
+
+           const toggleMessageButton = document.getElementById('sendMessageBtn');
+           const messageForm = document.getElementById('messageForm');
+
+           toggleMessageButton.addEventListener('click', function() {
+               messageForm.classList.toggle('show'); 
+               toggleMessageButton.textContent = messageForm.classList.contains('show') ? 'Hide Message Form' : 'Message User';
+           });
+       });
+   </script>
 </body>
 </html>

@@ -8,6 +8,6 @@ export interface PetShelter {
     capacity: number;
     address: string;
     description: string;
-    photo: number;
+    photo: string;
     isVerified: boolean;
 }

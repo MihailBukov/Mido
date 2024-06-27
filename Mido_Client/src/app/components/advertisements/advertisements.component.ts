@@ -14,25 +14,10 @@ export class AdvertisementsComponent implements OnInit{
   constructor(private adService: AdvertisementService , private router: Router) {}
 
   ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
-      
-    }
+
   }
 
   seeAd(ad: Advertisement): void {
-    if(ad && ad.id) {
-      this.adService.getAd(ad.id).subscribe(
-        (response: Advertisement) => {
-          this.router.navigate(['advertisement', ad.id]);
-        },
-      error => {
-        console.log(error)//a display message can also be added
-      }
-      );
-    } else {
-      console.log('Invalid advertisement ID');
-    }
+    this.router.navigate(['advertisement', ad]);
   }
-    
 }
