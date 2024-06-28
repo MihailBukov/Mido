@@ -28,7 +28,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/api/auth/register/first-step", "/api/auth/authenticate")
                     .permitAll()
                     .anyRequest()
-                    .permitAll())
+                    .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
