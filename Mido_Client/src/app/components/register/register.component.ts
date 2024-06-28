@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from '@progress/kendo-angular-notification';
 import { Role } from 'src/app/models/Role';
 import { Status } from 'src/app/models/Status';
 import { User } from 'src/app/models/User';
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit{
   })
 
   constructor(private fb: FormBuilder, private authService: AuthService,
-    private router: Router) {
+    private router: Router, private notificationService: NotificationService) {
 
   }
 
@@ -55,22 +56,28 @@ export class RegisterComponent implements OnInit{
     
     this.authService.register(userRegistered as User).subscribe(
       (response: any) => {
-        console.log("Registration successfull!")//a display message can also be added
+        this.notificationService.show({
+          content: 'User has been registered',
+          type: { style: 'success', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
         if(userRegistered.role === Role.CLIENT) {
-          /*
-          * go to page for creating a client
-          */
           this.router.navigate(['client', userRegistered.username]);
         }
         else {
-          /*
-          * go to page for creating a pet shelter
-          */
           this.router.navigate(['pet-shelter', userRegistered.username]);
         }
       },
       error => {
-        console.log(error)//a display message can also be added
+        this.notificationService.show({
+          content: 'There was an error while registering the user',
+          type: { style: 'error', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
       }
     )
   }

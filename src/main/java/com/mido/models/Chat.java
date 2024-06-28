@@ -20,9 +20,11 @@ public class Chat {
     @Column(name = "chat_name", length = 100, nullable = false)
     private String chatName;
 
-    @Column(name = "sender_username", nullable = false)
-    private String senderUsername;
+    @OneToOne
+    @JoinColumn(name = "sender", nullable = false)
+    private User sender;
 
-    @Column(name = "receiver_username", nullable = false)
-    private String receiverUsername;
+    @OneToOne
+    @JoinColumn(name = "receiver", nullable = false)
+    private User receiverUsername;
 }

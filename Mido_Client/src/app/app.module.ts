@@ -16,6 +16,7 @@ import { CreateAdvertisementComponent } from './components/create-advertisement/
 import { ChatComponent } from './components/chat/chat.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ProfileComponent } from './components/profile/profile.component'
+import { NotificationModule } from "@progress/kendo-angular-notification";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProfileComponent } from './components/profile/profile.component'
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

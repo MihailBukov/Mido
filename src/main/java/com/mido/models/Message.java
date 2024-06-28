@@ -25,11 +25,13 @@ public class Message {
     @Column(name = "message_text", length = 1000, nullable = false)
     private String text;
 
-    @Column(name = "sender_username", nullable = false)
-    private String senderUsername;
+    @OneToOne
+    @JoinColumn(name = "sender", nullable = false)
+    private User sender;
 
-    @Column(name = "receiver_username", nullable = false)
-    private String receiverUsername;
+    @OneToOne
+    @JoinColumn(name = "receiver", nullable = false)
+    private User receiver;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime timeCreated;
