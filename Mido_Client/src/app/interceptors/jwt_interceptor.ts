@@ -11,11 +11,13 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const fullToken = this.cookieService.get('access_token');
 
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${fullToken}`
-      }
-    })
+    if (!!fullToken) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${fullToken}`
+        }
+      })
+    }
 
     return next.handle(req);
   }

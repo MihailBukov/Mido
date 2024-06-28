@@ -17,10 +17,10 @@ export class RegisterComponent implements OnInit{
   * creating form for registering
   */
   registerForm = this.fb.group({
-    username: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
-    password: ['', Validators.required, Validators.min(5)],
-    role: ['', Validators.required],
+    username: ['', [Validators.required, Validators.min(1)]],
+    email: ['', [Validators.required, Validators.min(1)]],
+    password: ['', [Validators.required, Validators.min(1)]],
+    role: ['', [Validators.required, Validators.min(1)]],
     status: [Status.OFFLINE]
   })
 
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
+
   }
 
   getUsername() {
@@ -50,10 +50,9 @@ export class RegisterComponent implements OnInit{
         username: this.registerForm.get('username')?.value ?? '',
         email: this.registerForm.get('email')?.value ?? '',
         password: this.registerForm.get('password')?.value ?? '',
-        role: this.registerForm.get('role')?.value === 'Client' ? Role.CLIENT : Role.PET_SHELTER,
-        status: Status.OFFLINE
+        role: this.registerForm.get('role')?.value === 'Client' ? Role.CLIENT : Role.PET_SHELTER
     };
-    
+
     this.authService.register(userRegistered as User).subscribe(
       (response: any) => {
         this.notificationService.show({

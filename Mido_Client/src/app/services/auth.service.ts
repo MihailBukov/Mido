@@ -8,6 +8,7 @@ import { AuthenticationRequest } from "../models/requests/authentication-request
 import { jwtDecode } from "jwt-decode";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
+import {Role} from "../models/Role";
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,16 @@ export class AuthService {
     if (fullToken === "") {
       this.currentUser = new BehaviorSubject<User | null>(null);
     } else {
-      const decodedToken = jwtDecode(fullToken);
-      this.currentUser = new BehaviorSubject<User>({
-        id: decodedToken['id'],
-        role: decodedToken['role'],
-        username: decodedToken['sub']
-      })
+      const decodedToken = jwtDecode<User>(fullToken);
+      if (!decodedToken.id) {
+        this.currentUser = new BehaviorSubject<User | null>(null);
+      } else {
+        this.currentUser = new BehaviorSubject<User | null>({
+          id: decodedToken.id,
+          role: decodedToken.role as Role,
+          username: decodedToken['sub']
+        })
+      }
     }
   }
 
@@ -39,11 +44,21 @@ export class AuthService {
   }
 
   register(user: User) {
-    return this.http.post('${this.baseUrl}/users', user); //not sure about the url
+    return this.http.post(`${this.baseUrl}/auth/register/first-step`, user, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    });
   }
 
   login(request: AuthenticationRequest): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/auth/authenticate`, request);
+    return this.http.post<void>(`${this.baseUrl}/auth/authenticate`, request, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    });
   }
 
   getUserByUsername(username: string): Observable<User> {

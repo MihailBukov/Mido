@@ -36,9 +36,7 @@ export class ClientComponent implements OnInit{
     private router: Router, private route: ActivatedRoute, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this.authService.getUserByUsername(this.route.snapshot.params['username']).subscribe((user: User) => {
-      this.clientForm.get('user')?.patchValue(user);
-    });
+
   }
 
   createClient() {
