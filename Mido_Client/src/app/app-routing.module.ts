@@ -7,7 +7,7 @@ import { AdvertisementComponent } from './components/advertisement/advertisement
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
 import { ClientComponent } from './components/client/client.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 /*
 * routes represent all pages we can go to
@@ -15,7 +15,8 @@ import { authGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',
@@ -28,19 +29,22 @@ const routes: Routes = [
   {
     path: 'advertisement/:id',
     component: AdvertisementComponent,
-    //canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'advertisements',
     component: AdvertisementsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'client/:id',
     component: ClientComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'pet-shelter/:id',
     component: PetShelterComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',

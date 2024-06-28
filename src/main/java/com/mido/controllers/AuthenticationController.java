@@ -43,7 +43,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<Void> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response) {
         String jwt = authenticationService.authenticate(request);
-        Cookie cookie = new Cookie("Jwt", jwt);
+        Cookie cookie = new Cookie("access_token", jwt);
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
