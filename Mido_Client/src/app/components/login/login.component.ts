@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import {AuthenticationRequest} from "../../models/requests/authentication-request";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -36,27 +37,24 @@ export class LoginComponent implements OnInit{
   }
 
   login() {
-    const { username, password } = this.loginForm.value;
-    /*
-    * get the user by his name with auth service method
-    */
-    this.authService.getUserByUsername(username as string).subscribe (
-      response => {
-        if(response != null && response.password === password) {
-          console.log("Successfully loged in.")//should be a display message
-          /*
-          * navigate to next page
-          */
+    const username = this.getUsername().value;
+    const password = this.getPassword().value;
+
+    if (username && password) {
+      const request: AuthenticationRequest = {
+        username: username,
+        password: password
+      };
+
+      this.authService.login(request).pipe(take(1)).subscribe({
+        next: () => {
           this.router.navigate(['home']);
+        },
+        error: (error) => {
+          console.log(error);
         }
-        else {
-          sessionStorage.setItem('username', username as string)
-          console.log("Username or password wrong.")//should be a display message
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    )
+      })
+    } else {
+      console.log("Username and password cannot be null."); // Should be a display message
+    }
   }
-}
