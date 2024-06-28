@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit{
           closable: true
         });
         this.router.navigate(['']); //should navigate you back to the same profile. Purpose is to refresh.
-      }, 
+      },
       error => {
         this.notificationService.show({
           content: 'There was an error while leaving the comment.',
@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit{
           closable: true
         });
         this.router.navigate(['profile']); //should navigate you back to the same profile. Purpose is to refresh.
-      }, 
+      },
       error => {
         this.notificationService.show({
           content: 'There was an error while leaving a rating.',

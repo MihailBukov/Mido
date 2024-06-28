@@ -37,9 +37,7 @@ export class PetShelterComponent implements OnInit{
     private router: Router, private route: ActivatedRoute, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this.authService.getUserByUsername(this.route.snapshot.params['username']).subscribe((user: User) => {
-      this.petShelterForm.get('user')?.patchValue(user);
-    });
+
   }
 
   getName() {
