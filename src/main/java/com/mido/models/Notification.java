@@ -18,11 +18,13 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "sender_username", nullable = false)
-    private String senderUsername;
+    @OneToOne
+    @JoinColumn(name = "sender", nullable = false)
+    private User sender;
 
-    @Column(name = "receiver_username", nullable = false)
-    private String receiverUsername;
+    @OneToOne
+    @JoinColumn(name = "receiver", nullable = false)
+    private User receiverUsername;
 
     @Column(name = "text", nullable = false)
     private String text;

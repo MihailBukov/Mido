@@ -18,12 +18,14 @@ public class AdvertisementComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "advertisement_id", nullable = false)
-    private Long advertisementId;
+    @OneToOne
+    @JoinColumn(name = "advertisement_id", nullable = false)
+    private Advertisement advertisement;
 
     @Column(name = "comment", length = 300)
     private String comment;
 
-    @Column(name = "written_by", nullable = false)
-    private String writtenBy;
+    @OneToOne
+    @JoinColumn(name = "written_by", nullable = false)
+    private User writtenBy;
 }

@@ -5,13 +5,17 @@ import com.mido.repositories.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ChatService {
 
     private final ChatRepository chatRepository;
+
+    private final UserService userService;
 
     public Optional<String> getChatRoomName(String senderUsername, String receiverUsername, boolean createNewChatIfNotExists) {
         return chatRepository.findBySenderUsernameAndReceiverUsername(senderUsername, receiverUsername)
@@ -28,21 +32,24 @@ public class ChatService {
 
     public String createChat(String sender, String receiver) {
         String chatName =  String.format("%s_%s", sender, receiver);
-        Chat senderReceiver = new Chat();
+        Chat newChat = new Chat();
 
-        senderReceiver.setChatName(chatName);
-        senderReceiver.setSenderUsername(sender);
-        senderReceiver.setReceiverUsername(receiver);
+        newChat.setChatName(chatName);
+        newChat.setSender(userService.loadUserByUsername(sender));
+        newChat.setReceiverUsername(userService.loadUserByUsername(receiver));
 
-        Chat receiverSender = new Chat();
-
-        receiverSender.setChatName(chatName);
-        receiverSender.setSenderUsername(receiver);
-        receiverSender.setReceiverUsername(sender);
-
-        chatRepository.saveAndFlush(senderReceiver);
-        chatRepository.saveAndFlush(receiverSender);
+        chatRepository.saveAndFlush(newChat);
 
         return chatName;
+    }
+
+    public List<Chat> findUserChats(String username) {
+        return chatRepository.findAll().stream()
+                .filter(chat -> chat.getChatName().contains(username))
+                .collect(Collectors.toList());
+    }
+
+    public Optional<Chat> findByName(String chatName) {
+        return chatRepository.findByChatName(chatName);
     }
 }

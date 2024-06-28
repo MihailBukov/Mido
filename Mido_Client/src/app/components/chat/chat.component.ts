@@ -60,10 +60,7 @@ export class ChatComponent implements OnInit{
       text: this.newMessageText
     }
 
-    this.messageService.createMessage(this.newMessage).subscribe(
-      response => {
-        this.router.navigate(['chat', this.chat.receiverUsername])
-      }
-    );
+    this.messageService.sendMessage(this.newMessage);
+    this.router.navigate(['chat', this.chat.receiverUsername]);// here username represents the receiver in the new chat
   }
 }

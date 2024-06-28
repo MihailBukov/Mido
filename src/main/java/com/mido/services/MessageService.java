@@ -34,7 +34,7 @@ public class MessageService {
 
     public void checkUser(String username, Message newMessage) {
         if(username != null && userService.loadUserByUsername(username) != null) {
-            newMessage.setSenderUsername(username);
+            newMessage.setSender(userService.loadUserByUsername(username));
         } else {
             throw new IllegalArgumentException("Such user doesn't exist");
         }

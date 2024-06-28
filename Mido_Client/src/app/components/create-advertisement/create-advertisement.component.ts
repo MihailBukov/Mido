@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from '@progress/kendo-angular-notification';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create-advertisement',
@@ -25,7 +25,7 @@ export class CreateAdvertisementComponent implements OnInit{
   });
 
   constructor(private fb: FormBuilder, private adService: AdvertisementService,
-    private router: Router) {}
+    private router: Router, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     
@@ -35,11 +35,23 @@ export class CreateAdvertisementComponent implements OnInit{
     const ad = { ...this.createAdForm.value };
     this.adService.createAd(ad as Advertisement).subscribe(
       response => {
-        console.log("Pet Shelter successfully created!")//a display message can also be added
+        this.notificationService.show({
+          content: 'Advertisement is created.',
+          type: { style: 'success', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
         this.router.navigate(['home']);
       },
       error => {
-        console.log(error)//a display message can also be added
+        this.notificationService.show({
+          content: 'There was an error while creating the advertisement',
+          type: { style: 'error', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
       }
     )
   }

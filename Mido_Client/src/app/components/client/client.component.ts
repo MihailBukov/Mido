@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '@progress/kendo-angular-notification';
 import { Client } from 'src/app/models/Client';
 import { Role } from 'src/app/models/Role';
 import { Status } from 'src/app/models/Status';
@@ -32,7 +33,7 @@ export class ClientComponent implements OnInit{
   });
 
   constructor(private fb: FormBuilder, private authService: AuthService,
-    private router: Router, private route: ActivatedRoute) {}
+    private router: Router, private route: ActivatedRoute, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.authService.getUserByUsername(this.route.snapshot.params['username']).subscribe((user: User) => {
@@ -40,47 +41,27 @@ export class ClientComponent implements OnInit{
     });
   }
 
-  getFirstName() {
-    return this.clientForm.controls['firstName'];
-  }
-
-  getMiddleName() {
-    return this.clientForm.controls['middleName'];
-  }
-
-  getLastName() {
-    return this.clientForm.controls['lastName'];
-  }
-
-  getAge() {
-    return this.clientForm.controls['age'];
-  }
-
-  getCountry() {
-    return this.clientForm.controls['country'];
-  }
-
-  getCity() {
-    return this.clientForm.controls['city'];
-  }
-
-  getPhoto() {
-    return this.clientForm.controls['photo'];
-  }
-
-  getDescription() {
-    return this.clientForm.controls['description'];
-  }
-
   createClient() {
     const client = { ... this.clientForm.value };
     this.authService.createClient(client as Client).subscribe(
       response => {
-        console.log("Pet Shelter successfully created!")//a display message can also be added
+        this.notificationService.show({
+          content: 'Client has been created',
+          type: { style: 'success', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
         this.router.navigate(['home']);
       },
       error => {
-        console.log(error)//a display message can also be added
+        this.notificationService.show({
+          content: 'There was an error while creating the client',
+          type: { style: 'error', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
       }
     )
   }

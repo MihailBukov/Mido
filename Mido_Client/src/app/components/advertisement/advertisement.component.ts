@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '@progress/kendo-angular-notification';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementComment } from 'src/app/models/AdvertisementComment';
 import { Message } from 'src/app/models/Message';
@@ -20,7 +21,8 @@ export class AdvertisementComponent implements OnInit{
   message!: Message;
 
   constructor(private adService: AdvertisementService, private adCommentsService: AdvertisementCommentService, 
-    private messageService: MessageService, private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {}
+    private messageService: MessageService, private route: ActivatedRoute, private fb: FormBuilder, private router: Router,
+    private notificationService: NotificationService) {}
 
   commentForm = this.fb.group({
       comment: ['']
@@ -51,10 +53,23 @@ export class AdvertisementComponent implements OnInit{
     //this.comment now should be set using the commentText, the advertisement id and the current user id
     this.adCommentsService.createAdComment(this.comment as AdvertisementComment).subscribe(
       response => {
+        this.notificationService.show({
+          content: 'New comment has been created.',
+          type: { style: 'success', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
         this.router.navigate(['advertisement', this.ad?.id]);
       }, 
       error => {
-        console.error(error);
+        this.notificationService.show({
+          content: 'There was an error while creating the new comment.',
+          type: { style: 'error', icon: true },
+          animation: { type: 'slide', duration: 600 },
+          position: { horizontal: 'center', vertical: 'bottom'},
+          closable: true
+        });
       }
     );
   }
@@ -66,14 +81,8 @@ export class AdvertisementComponent implements OnInit{
   messageUser(receiverUsername: string) {
     const messageText = this.messageForm.get('text')?.value;
     //here this.message should be set using messageText, sender and receiver username
-    this.messageService.createMessage(this.message as Message).subscribe(
-      response => {
-        this.router.navigate(['chat', receiverUsername]);
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    this.messageService.sendMessage(this.message);
+    this.router.navigate(['chat', receiverUsername]);// here username represents the receiver in the new chat
   }
 
 }

@@ -45,12 +45,12 @@ public class AdvertisementCommentService {
                 editedComment.setComment(req.comment());
             }
 
-            if(req.writtenBy() != null) {
-                editedComment.setWrittenBy(req.writtenBy());
+            if(req.writtenBy() != null && userService.loadUserByUsername(req.writtenBy()) != null) {
+                editedComment.setWrittenBy(userService.loadUserByUsername(req.writtenBy()));
             }
 
-            if(req.advertisementId() != null) {
-                editedComment.setAdvertisementId(req.advertisementId());
+            if(req.advertisementId() != null && adService.findById(req.advertisementId()) != null) {
+                editedComment.setAdvertisement(adService.findById(req.advertisementId()));
             }
 
             return editedComment;
@@ -77,8 +77,8 @@ public class AdvertisementCommentService {
             throw new IllegalArgumentException("There is not such user");
         }
 
-        newComment.setWrittenBy(req.writtenBy());
-        newComment.setAdvertisementId(req.advertisementId());
+        newComment.setWrittenBy(userService.loadUserByUsername(req.writtenBy()));
+        newComment.setAdvertisement(adService.findById(req.advertisementId()));
 
         return newComment;
     }

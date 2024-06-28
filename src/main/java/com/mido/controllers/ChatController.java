@@ -2,6 +2,7 @@ package com.mido.controllers;
 
 import com.mido.dtos.ChatDto;
 import com.mido.dtos.requests.MessageRequest;
+import com.mido.models.Chat;
 import com.mido.models.Message;
 import com.mido.models.Notification;
 import com.mido.services.ChatService;
@@ -12,10 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,16 +33,22 @@ public class ChatController {
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 
-    @MessageMapping("/chat")
+    @MessageMapping("/create")
     public void processMessage(@Payload MessageRequest messageReq) {
         Message savedMsg = messageService.save(messageReq);
         Notification notification = new Notification();
         notification.setId(savedMsg.getId());
-        notification.setSenderUsername(savedMsg.getSenderUsername());
-        notification.setReceiverUsername(savedMsg.getReceiverUsername());
+        notification.setSender(savedMsg.getSender());
+        notification.setReceiverUsername(savedMsg.getReceiver());
         notification.setText(savedMsg.getText());
         messagingTemplate.convertAndSendToUser(
-                savedMsg.getReceiverUsername(), "/queue/messages", notification
+                savedMsg.getReceiver().getUsername(), "/queue/messages", notification
         );
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<List<Chat>> findChats(@PathVariable String username) {
+        List<Chat> chats = chatService.findUserChats(username);
+        return new ResponseEntity<>(chats, HttpStatus.OK);
     }
 }
