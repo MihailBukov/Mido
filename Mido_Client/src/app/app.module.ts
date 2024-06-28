@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { NotificationComponent } from './components/notification/notification.component';
 import { ProfileComponent } from './components/profile/profile.component'
 import { NotificationModule } from "@progress/kendo-angular-notification";
 
@@ -31,7 +30,6 @@ import { NotificationModule } from "@progress/kendo-angular-notification";
     NavbarComponent,
     CreateAdvertisementComponent,
     ChatComponent,
-    NotificationComponent,
     ProfileComponent,
   ],
   imports: [

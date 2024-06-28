@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '@progress/kendo-angular-notification';
+import { Subscription } from 'rxjs';
 import { Chat } from 'src/app/models/Chat';
 import { Message } from 'src/app/models/Message';
 import { ChatService } from 'src/app/services/chat.service';
 import { MessageService } from 'src/app/services/message.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -12,13 +15,14 @@ import { MessageService } from 'src/app/services/message.service';
 })
 export class ChatComponent implements OnInit{
   chat!: Chat;
-  messeges: Message[] = [];
+  messages: Message[] = [];
   allChats: Chat[] = [];
   newMessage!: Message;
   newMessageText: string = '';
+  messageSubscription!: Subscription;
 
   constructor(private messageService: MessageService, private chatService: ChatService,
-    private route: ActivatedRoute,  private router: Router) {   }
+    private route: ActivatedRoute,  private router: Router, private notificationService: NotificationService) {   }
 
   ngOnInit(): void {
     this.chatService.getAllCurrentUserChats("").subscribe(//here instead of "" we should have the current user's username
@@ -37,14 +41,33 @@ export class ChatComponent implements OnInit{
     };
 
     if(this.chat) {
-      this.chatService.getChatMessages(this.chat.senderUsername, this.chat.receiverUsername).subscribe(
-        (response: Message[]) => {
-          this.messeges = response;
+      this.messageSubscription = this.messageService.getMessages().subscribe(
+        message => {
+          this.notificationService.show({
+            content: 'New message received',
+            type: { style: 'info', icon: true },
+            animation: { type: 'slide', duration: 600 },
+            position: { horizontal: 'center', vertical: 'bottom'},
+            closable: true
+          });
+          this.messages = message; // Assuming 'messages' is an array in your component
         },
         error => {
-          console.error(error);
+          this.notificationService.show({
+            content: 'Error sending message.',
+            type: { style: 'error', icon: true },
+            animation: { type: 'slide', duration: 600 },
+            position: { horizontal: 'center', vertical: 'bottom'},
+            closable: true
+          });
         }
       );
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
     }
   }
 
