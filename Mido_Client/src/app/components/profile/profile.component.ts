@@ -5,7 +5,6 @@ import { NotificationService } from '@progress/kendo-angular-notification';
 import { Client } from 'src/app/models/Client';
 import { Message } from 'src/app/models/Message';
 import { PetShelter } from 'src/app/models/PetShelter';
-import { Role } from 'src/app/models/Role';
 import { User } from 'src/app/models/User';
 import { UserComment } from 'src/app/models/UserComment';
 import { UserRating } from 'src/app/models/UserRating';
@@ -46,7 +45,7 @@ export class ProfileComponent implements OnInit{
 
     this.authService.getUserByUsername(this.username).subscribe(
       (response: User) => {
-        this.role = response.role.toString();
+        this.role = !!response.role ? response.role.toString() : '';
       },
       error => {
         console.error(error);

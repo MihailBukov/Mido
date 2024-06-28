@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit{
 
       this.authService.login(request).pipe(take(1)).subscribe({
         next: () => {
+          this.authService.extractUserInformationFromJwtToken();
           this.router.navigate(['home']);
         },
         error: (error) => {

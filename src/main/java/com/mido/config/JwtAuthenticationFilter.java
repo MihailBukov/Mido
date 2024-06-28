@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
     private static final int JWT_START_POSITION = 7;
-    private static final String REGISTER = "/api/auth/register/first-step";
+    private static final String REGISTER = "/api/auth/register";
     private static final String LOGIN = "/api/auth/authenticate";
 
     private final JwtService jwtService;

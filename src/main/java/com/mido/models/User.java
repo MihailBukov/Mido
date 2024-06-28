@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.OFFLINE;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

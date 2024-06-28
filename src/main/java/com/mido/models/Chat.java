@@ -26,5 +26,5 @@ public class Chat {
 
     @OneToOne
     @JoinColumn(name = "receiver", nullable = false)
-    private User receiverUsername;
+    private User receiver;
 }
