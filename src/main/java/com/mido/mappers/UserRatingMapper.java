@@ -13,6 +13,8 @@ import org.mapstruct.Mapping;
 public interface UserRatingMapper {
     @Mapping(source = "userRates.username", target = "userRates")
     @Mapping(source = "userRated.username", target = "userRated")
+    @Mapping(target = "userRatesName", expression = "java(rating.getUserRates().getNameOfUser())")
+    @Mapping(target = "userRatedName", expression = "java(rating.getUserRated().getNameOfUser())")
     UserRatingDto ratingToRatingDto(UserRating rating);
 
 }

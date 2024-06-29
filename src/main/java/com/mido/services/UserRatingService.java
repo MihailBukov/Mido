@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,12 @@ public class UserRatingService {
     private final UserRatingMapper ratingMapper;
 
     private final UserService userService;
+
+    public List<UserRatingDto> getUserRatingsByUserUsername(String username) {
+        return userRatingRepo.findByUserRated_Username(username).stream()
+                .map(ratingMapper::ratingToRatingDto)
+                .toList();
+    }
 
     public void addUserRating(UserRatingRequest ratingReq) {
         UserRating rating = setRatingFromRequest(ratingReq);
@@ -48,13 +55,15 @@ public class UserRatingService {
             throw new IllegalArgumentException("Usernames are empty");
         }
 
-        if(userService.loadUserByUsername(ratingReq.userRates()) == null ||
-                userService.loadUserByUsername(ratingReq.userRated()) == null) {
+        User userRates = userService.loadUserByUsername(ratingReq.userRates());
+        User userRated = userService.loadUserByUsername(ratingReq.userRated());
+        if(userRates == null ||
+                userRated == null) {
             throw new IllegalArgumentException("Such user doesn't exist");
         }
 
-        rating.setUserRates(userService.loadUserByUsername(ratingReq.userRates()));
-        rating.setUserRated(userService.loadUserByUsername(ratingReq.userRated()));
+        rating.setUserRates(userRates);
+        rating.setUserRated(userRated);
 
         return rating;
     }

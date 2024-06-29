@@ -37,4 +37,9 @@ public class PetShelter extends User {
 
     @Column(name = "verification")
     private Boolean isVerified;
+
+    @Override
+    public String getNameOfUser() {
+        return name;
+    }
 }

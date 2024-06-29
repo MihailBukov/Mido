@@ -8,6 +8,7 @@ import com.mido.repositories.UserCommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,12 @@ public class UserCommentService {
 
     private final UserService userService;
 
+    public List<UserCommentDto> getCommentsByUserUsername(String username) {
+        return userCommentRepository.findByWrittenTo_Username(username).stream()
+                .map(userCommentMapper::commentToCommentDto)
+                .toList();
+    }
+    
     public void addComment(UserCommentRequest req) {
         UserComment newComment = setCommentFromRequest(req);
         userCommentRepository.saveAndFlush(newComment);

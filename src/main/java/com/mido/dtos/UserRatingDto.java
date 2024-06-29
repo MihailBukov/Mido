@@ -8,5 +8,7 @@ public class UserRatingDto {
 
     private Integer rating;
     private String userRates;
+    private String userRatesName;
     private String userRated;
+    private String userRatedName;
 }
