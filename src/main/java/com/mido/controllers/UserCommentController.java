@@ -8,12 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")
 public class UserCommentController {
     private final UserCommentService userCommentService;
+
+    @GetMapping("/{username}")
+    public ResponseEntity<List<UserCommentDto>> getUserRating(@PathVariable String username) {
+        return new ResponseEntity<>(userCommentService.getCommentsByUserUsername(username), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<Void> createComment(@RequestBody UserCommentRequest commentReq) {

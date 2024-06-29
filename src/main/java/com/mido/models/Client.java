@@ -38,4 +38,9 @@ public class Client extends User {
 
     @Column(name = "description", length = 500)
     private String description;
+
+    @Override
+    public String getNameOfUser() {
+        return firstName + " " + middleName + " " + lastName;
+    }
 }

@@ -2,13 +2,13 @@ package com.mido.controllers;
 
 import com.mido.dtos.UserRatingDto;
 import com.mido.dtos.requests.UserRatingRequest;
-import com.mido.models.UserRating;
 import com.mido.services.UserRatingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/rating")
 public class UserRatingController {
     private final UserRatingService ratingService;
+
+    @GetMapping("/{username}")
+    public ResponseEntity<List<UserRatingDto>> getUserRating(@PathVariable String username) {
+        return new ResponseEntity<>(ratingService.getUserRatingsByUserUsername(username), HttpStatus.OK);
+    }
 
     @PostMapping()
     public ResponseEntity<Void> createUserRating(@RequestBody UserRatingRequest ratingReq) {
