@@ -8,7 +8,7 @@ import { UserRating } from '../models/UserRating';
 })
 export class RatingService {
 
-  private baseUrl = 'localhost:8080/api/rating';
+  private baseUrl = 'http://localhost:8080/api/rating';
 
   constructor(private http: HttpClient) { }
 

@@ -8,11 +8,11 @@ import { Advertisement } from '../models/Advertisement';
 })
 export class AdvertisementService {
 
-  private baseUrl = 'localhost:8080/api/advertisement';
+  private baseUrl = 'http://localhost:8080/api/advertisement';
 
   constructor(private http: HttpClient) { }
 
-  searchAds(country: string, city: string, breed: string, 
+  searchAds(country: string, city: string, breed: string,
     age: string, gender: string): Observable<Advertisement[]> {
     return this.http.get<Advertisement[]>(`${this.baseUrl}/users?username=${country}?city=${city}?breed=${breed}?age=${age}?gender=${gender}`);
   }
