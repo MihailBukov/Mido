@@ -2,6 +2,8 @@ package com.mido.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +37,8 @@ public class FileStorageService {
         return filePath.toString();
     }
 
-    public byte[] downloadImage(String imagePath) throws IOException {
-        return Files.readAllBytes(new File(imagePath).toPath());
+    public Resource downloadImage(String imagePath) throws IOException {
+        Path path = Paths.get(imagePath);
+        return new UrlResource(path.toUri());
     }
 }

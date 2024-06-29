@@ -25,8 +25,8 @@ export class ProfileComponent implements OnInit {
   rating: UserRating = {} as UserRating;
   impressionFormActivated: boolean = false;
   impressionForm: FormGroup;
-  comments: UserComment[];
-  ratings: UserRating[];
+  comments: UserComment[] = [];
+  ratings: UserRating[] = [];
   avarageRating: number;
 
   constructor(
@@ -100,8 +100,8 @@ export class ProfileComponent implements OnInit {
     })
 
     this.avarageRating = this.ratings
-                          .map(rating => rating.rating) 
-                          .reduce((acc, rating) => acc + rating, 0) / this.ratings.length ; 
+                          .map(rating => rating.rating)
+                          .reduce((acc, rating) => acc + rating, 0) / this.ratings.length ;
   }
 
   takeImpression() {
