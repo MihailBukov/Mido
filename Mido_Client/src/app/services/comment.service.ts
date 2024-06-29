@@ -26,4 +26,8 @@ export class CommentService {
   deleteComment(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  getAllComments(username: string): Observable<UserComment[]> {
+    return this.http.get<UserComment[]>(`${this.baseUrl}/${username}`);
+  }
 }

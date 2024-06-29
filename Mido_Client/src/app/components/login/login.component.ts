@@ -56,6 +56,6 @@ export class LoginComponent implements OnInit{
         }
       })
     } else {
-      console.log("Username and password cannot be null."); // Should be a display message
+      console.log("Username and password cannot be null.");
     }
   }}

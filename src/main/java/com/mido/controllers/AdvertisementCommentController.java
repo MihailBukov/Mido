@@ -40,8 +40,8 @@ public class AdvertisementCommentController {
     }
 
     @GetMapping("/comments/{adId}")
-    public ResponseEntity<List<AdvertisementCommentDto>> getAllComments(@PathVariable Long adID) {
-        List<AdvertisementCommentDto> comments = adCommentService.getAllComments(adID);
+    public ResponseEntity<List<AdvertisementCommentDto>> getAllComments(@PathVariable Long adId) {
+        List<AdvertisementCommentDto> comments = adCommentService.getAllComments(adId);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 

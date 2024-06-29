@@ -17,6 +17,7 @@
             <p><strong>City:</strong> {{ client.city }}</p>
             <p><strong>Photo URL:</strong> {{ client.photo }}</p>
             <p><strong>Description:</strong> {{ client.description }}</p>
+            <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
         </div>
     </div>
     
@@ -29,6 +30,7 @@
             <p><strong>Capacity:</strong> {{ petShelter.capacity }}</p>
             <p><strong>Address:</strong> {{ petShelter.address }}</p>
             <p><strong>Description:</strong> {{ petShelter.description }}</p>
+            <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
             <div>
                 <strong>Verification:</strong> 
                 <div *ngIf="petShelter.isVerified">
@@ -43,25 +45,27 @@
 
     <div class="button-section" *ngIf="username != currentUser?.username">
         <button (click)="activateImpressionForm()"d="leaveCommentBtn">Leave a Comment</button>
-        <button (click)="activateMessageForm()" id="messageBtn">Message User</button>
     </div>
 
     <div class="impressionForm" id="form" *ngIf="impressionFormActivated">
         <form [formGroup]="impressionForm" (ngSubmit)="takeImpression()">
             <label for="comment">Comment:</label>
-            <input type="text" id="comment" name="comment" required>
-            <button type="submit">Submit</button>
+            <input type="text" id="comment" formControlName="comment" required>
+            
             <label for="rating">Rating:</label>
-            <input type="range" id="rating" name="rating" min="1" max="5" step="1" required>
+            <input type="number" id="rating" formControlName="rating" min="1" max="5" required>
+
+            <button type="submit">Submit</button>
         </form>
+        
     </div>
 
-    <div class="message-form" id="form" *ngIf="messageFormActivated">
-        <form [formGroup]="messageForm" (ngSubmit)="messageUser()">
-            <label for="comment">Message:</label>
-            <input type="text" id="text" name="text" required>
-            <button type="submit">Submit</button>
-        </form>
+    <div class="comments">
+        <div *ngIf="comments.length === 0">No comments found.</div>
+        <div *ngFor="let comment of comments" class="comment-card">
+          <p><strong>Written By:</strong>{{ comment.writtenBy }}</p>
+          <p>{{ comment.comment }}</p>
+        </div>
     </div>
 </body>
 </html>
