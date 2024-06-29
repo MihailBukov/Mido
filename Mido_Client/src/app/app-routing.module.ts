@@ -5,8 +5,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdvertisementComponent } from './components/advertisement/advertisement.component';
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
-import { ClientComponent } from './components/client/client.component';
-import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
 import {ProfileComponent} from "./components/profile/profile.component";
@@ -41,16 +39,6 @@ const routes: Routes = [
   {
     path: 'advertisements',
     component: AdvertisementsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'client/:id',
-    component: ClientComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'pet-shelter/:id',
-    component: PetShelterComponent,
     canActivate: [AuthGuard]
   },
   {
