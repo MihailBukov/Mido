@@ -36,7 +36,7 @@ public class ChatService {
 
         newChat.setChatName(chatName);
         newChat.setSender(userService.loadUserByUsername(sender));
-        newChat.setReceiverUsername(userService.loadUserByUsername(receiver));
+        newChat.setReceiver(userService.loadUserByUsername(receiver));
 
         chatRepository.saveAndFlush(newChat);
 

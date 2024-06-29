@@ -1,20 +1,24 @@
 package com.mido.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mido.dtos.requests.AuthenticationRequest;
-import com.mido.dtos.requests.ClientRegisterRequest;
-import com.mido.dtos.requests.FirstStepRegister;
-import com.mido.dtos.requests.PetShelterRegisterRequest;
+import com.mido.dtos.requests.RegisterRequest;
 import com.mido.services.AuthenticationService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
@@ -24,21 +28,13 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/register/first-step")
-    public ResponseEntity<Void> registerFirstStep(@RequestBody FirstStepRegister request) {
-        authenticationService.firstStepRegister(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+    private final ObjectMapper objectMapper;
 
-    @PostMapping("/register/client-register")
-    public ResponseEntity<Void> registerClient(@RequestBody ClientRegisterRequest request) {
-        authenticationService.registerClient(request);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PostMapping("/register/pet-shelter-register")
-    public ResponseEntity<Void> registerPetShelter(@RequestBody PetShelterRegisterRequest request) {
-        authenticationService.registerPetShelter(request);
+    @PostMapping(path = "/register", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<Void> registerFirstStep(@RequestPart String request,
+                                                  @RequestPart(required = false) MultipartFile picture) throws IOException {
+        RegisterRequest registerRequest = objectMapper.readValue(request, RegisterRequest.class);
+        authenticationService.registerUser(registerRequest, picture);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

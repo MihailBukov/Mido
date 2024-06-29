@@ -6,5 +6,5 @@ import lombok.Data;
 public class AdvertisementCommentDto {
     private Long advertisementId;
     private String comment;
-    private String writtenBy;
+    private String writtenByUsername;
 }

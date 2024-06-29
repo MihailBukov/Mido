@@ -46,7 +46,6 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("Unauthorized to create admin account");
         }
 
-        //userToCreate.setPassword(passwordEncoder.encode(userToCreate.getPassword()));
         userToCreate.setStatus(Status.ONLINE);
         userToCreate.setPassword(new BCryptPasswordEncoder().encode(userToCreate.getPassword()));
         userRepository.saveAndFlush(userToCreate);

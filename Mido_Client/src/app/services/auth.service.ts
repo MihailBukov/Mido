@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
 import {Role} from "../models/Role";
+import {RegisterUserRequest} from "../models/requests/register-user";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class AuthService {
   private currentUser: BehaviorSubject<User | null>;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+    this.currentUser = new BehaviorSubject<User | null>(null);
+    this.extractUserInformationFromJwtToken();
+  }
+
+  extractUserInformationFromJwtToken() {
     const fullToken = this.cookieService.get('access_token');
 
     if (fullToken === "") {
@@ -43,8 +49,11 @@ export class AuthService {
     return this.currentUser.value;
   }
 
-  register(user: User) {
-    return this.http.post(`${this.baseUrl}/auth/register/first-step`, user, {
+  register(user: string, image: File) {
+    const formData: FormData = new FormData();
+    formData.append('picture', image);
+    formData.append('request', user);
+    return this.http.post(`${this.baseUrl}/auth/register`, formData, {
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
@@ -79,6 +88,7 @@ export class AuthService {
 
   logout() {
     this.currentUser = new BehaviorSubject<User | null>(null);
+    this.cookieService.delete('access_token');
     this.router.navigate(['login']);
   }
 }

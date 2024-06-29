@@ -1,10 +1,8 @@
 package com.mido.controllers;
 
-import com.mido.dtos.ChatDto;
 import com.mido.dtos.requests.MessageRequest;
 import com.mido.models.Chat;
 import com.mido.models.Message;
-import com.mido.models.Notification;
 import com.mido.services.ChatService;
 import com.mido.services.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +34,8 @@ public class ChatController {
     @MessageMapping("/create")
     public void processMessage(@Payload MessageRequest messageReq) {
         Message savedMsg = messageService.save(messageReq);
-        Notification notification = new Notification();
-        notification.setId(savedMsg.getId());
-        notification.setSender(savedMsg.getSender());
-        notification.setReceiverUsername(savedMsg.getReceiver());
-        notification.setText(savedMsg.getText());
         messagingTemplate.convertAndSendToUser(
-                savedMsg.getReceiver().getUsername(), "/queue/messages", notification
+                savedMsg.getReceiver().getUsername(), "/queue/messages", savedMsg
         );
     }
 

@@ -8,6 +8,7 @@ import { AdvertisementsComponent } from './components/advertisements/advertiseme
 import { ClientComponent } from './components/client/client.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { AuthGuard } from './guards/auth.guard';
+import {ProfileComponent} from "./components/profile/profile.component";
 
 /*
 * routes represent all pages we can go to
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'profile/:username',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'advertisement/:id',

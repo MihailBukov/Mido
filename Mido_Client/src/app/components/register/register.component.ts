@@ -1,60 +1,122 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NotificationService } from '@progress/kendo-angular-notification';
-import { Role } from 'src/app/models/Role';
-import { Status } from 'src/app/models/Status';
-import { User } from 'src/app/models/User';
-import { AuthService } from 'src/app/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Role } from "../../models/Role";
+import {NotificationService} from "@progress/kendo-angular-notification";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
+import {RegisterUserRequest} from "../../models/requests/register-user";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit{
-  /*
-  * creating form for registering
-  */
-  registerForm = this.fb.group({
-    username: ['', [Validators.required, Validators.min(1)]],
-    email: ['', [Validators.required, Validators.min(1)]],
-    password: ['', [Validators.required, Validators.min(1)]],
-    role: ['', [Validators.required, Validators.min(1)]],
-    status: [Status.OFFLINE]
-  })
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
+  selectedRole: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService,
-    private router: Router, private notificationService: NotificationService) {
-
-  }
+  constructor(
+    private fb: FormBuilder,
+    private notificationService: NotificationService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      role: ['', Validators.required],
+      firstName: [''],
+      middleName: [''],
+      lastName: [''],
+      age: [''],
+      country: [''],
+      city: [''],
+      description: [''],
+      name: [''],
+      capacity: [''],
+      address: [''],
+      picture: [null]
+    });
 
+    this.registerForm.get('role')?.valueChanges.subscribe(role => {
+      this.selectedRole = role;
+      this.updateFormFields(role);
+    });
   }
 
-  getUsername() {
-    return this.registerForm.controls['username'];
+  updateFormFields(role: string): void {
+    if (role === 'client') {
+      this.registerForm.get('firstName')?.setValidators([Validators.required]);
+      this.registerForm.get('lastName')?.setValidators([Validators.required]);
+      this.registerForm.get('age')?.setValidators([Validators.required, Validators.min(0)]);
+      this.registerForm.get('country')?.setValidators([Validators.required]);
+      this.registerForm.get('city')?.setValidators([Validators.required]);
+
+      this.registerForm.get('name')?.clearValidators();
+      this.registerForm.get('capacity')?.clearValidators();
+      this.registerForm.get('address')?.clearValidators();
+    } else if (role === 'pet-shelter') {
+      this.registerForm.get('name')?.setValidators([Validators.required]);
+      this.registerForm.get('country')?.setValidators([Validators.required]);
+      this.registerForm.get('city')?.setValidators([Validators.required]);
+      this.registerForm.get('capacity')?.setValidators([Validators.required, Validators.min(0)]);
+      this.registerForm.get('address')?.setValidators([Validators.required]);
+
+      this.registerForm.get('firstName')?.clearValidators();
+      this.registerForm.get('lastName')?.clearValidators();
+      this.registerForm.get('age')?.clearValidators();
+    }
+
+    this.registerForm.get('firstName')?.updateValueAndValidity();
+    this.registerForm.get('lastName')?.updateValueAndValidity();
+    this.registerForm.get('age')?.updateValueAndValidity();
+    this.registerForm.get('country')?.updateValueAndValidity();
+    this.registerForm.get('city')?.updateValueAndValidity();
+    this.registerForm.get('description')?.updateValueAndValidity();
+    this.registerForm.get('name')?.updateValueAndValidity();
+    this.registerForm.get('capacity')?.updateValueAndValidity();
+    this.registerForm.get('address')?.updateValueAndValidity();
   }
 
-  getEmail() {
-    return this.registerForm.controls['email'];
-  }
-
-  getPassword() {
-    return this.registerForm.controls['password'];
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    this.registerForm.patchValue({
+      picture: file
+    });
   }
 
   register() {
-    const userRegistered: User = {
-        username: this.registerForm.get('username')?.value ?? '',
-        email: this.registerForm.get('email')?.value ?? '',
-        password: this.registerForm.get('password')?.value ?? '',
-        role: this.registerForm.get('role')?.value === 'Client' ? Role.CLIENT : Role.PET_SHELTER
+    let userRegistered: RegisterUserRequest = {
+      username: this.registerForm.get('username')?.value ?? '',
+      email: this.registerForm.get('email')?.value ?? '',
+      password: this.registerForm.get('password')?.value ?? '',
+      role: this.registerForm.get('role')?.value === 'client' ? Role.CLIENT : Role.PET_SHELTER,
+      country: this.registerForm.get('country')?.value ?? '',
+      city: this.registerForm.get('city')?.value ?? '',
+      description: this.registerForm.get('description')?.value ?? ''
     };
+    if (this.registerForm.get('role')?.value === 'Client') {
+      userRegistered = {
+        ...userRegistered,
+        firstName: this.registerForm.get('firstName')?.value ?? '',
+        middleName: this.registerForm.get('middleName')?.value ?? '',
+        lastName: this.registerForm.get('lastName')?.value ?? '',
+        age: this.registerForm.get('age')?.value ?? 0,
+      }
+    } else {
+      userRegistered = {
+        ...userRegistered,
+        name: this.registerForm.get('name')?.value ?? '',
+        address: this.registerForm.get('address')?.value ?? '',
+        capacity: this.registerForm.get('capacity')?.value ?? 0,
+      }
+    }
 
-    this.authService.register(userRegistered as User).subscribe(
-      (response: any) => {
+    this.authService.register(JSON.stringify(userRegistered), this.registerForm.get('picture')?.value ?? null).subscribe({
+      next: () => {
         this.notificationService.show({
           content: 'User has been registered',
           type: { style: 'success', icon: true },
@@ -69,7 +131,7 @@ export class RegisterComponent implements OnInit{
           this.router.navigate(['pet-shelter', userRegistered.username]);
         }
       },
-      error => {
+      error: () => {
         this.notificationService.show({
           content: 'There was an error while registering the user',
           type: { style: 'error', icon: true },
@@ -78,6 +140,6 @@ export class RegisterComponent implements OnInit{
           closable: true
         });
       }
-    )
+    })
   }
 }
