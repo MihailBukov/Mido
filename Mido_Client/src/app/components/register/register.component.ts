@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Role } from "../../models/Role";
-import {NotificationService} from "@progress/kendo-angular-notification";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {RegisterUserRequest} from "../../models/requests/register-user";
@@ -17,7 +16,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private notificationService: NotificationService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -120,13 +118,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error: () => {
-        this.notificationService.show({
-          content: 'There was an error while registering the user',
-          type: { style: 'error', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
+
       }
     })
   }

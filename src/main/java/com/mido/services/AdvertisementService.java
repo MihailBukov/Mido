@@ -86,8 +86,22 @@ public class AdvertisementService {
         adRepo.deleteById(id);
     }
 
-    public List<AdvertisementDto> searchAdvertisements(String country, String city, String breed, Integer age, String gender){
-        List<Advertisement> ads = adRepo.searchAdvertisements(country, city, breed, age, gender);
+    public List<AdvertisementDto> searchAdvertisements(String country, String city, String breed, String age, String gender){
+        int fromAge = 0;
+        int toAge = 100;
+
+        if(age != null && !age.isEmpty()) {
+            if(age.equals("older")) {
+                fromAge = 9;
+                toAge = 100;
+            } else {
+                String[] parts = age.split("-");
+                fromAge = Integer.parseInt(parts[0]);
+                toAge = Integer.parseInt(parts[1]);
+            }
+        }
+
+        List<Advertisement> ads = adRepo.searchAdvertisements(country, city, breed, fromAge, toAge, gender);
         return ads.stream().map(adMapper :: adToAdDto).collect(Collectors.toList());
     }
 }

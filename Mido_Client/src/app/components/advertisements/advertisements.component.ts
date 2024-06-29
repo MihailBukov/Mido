@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
 
@@ -9,15 +9,35 @@ import { AdvertisementService } from 'src/app/services/advertisement.service';
   styleUrls: ['./advertisements.component.css']
 })
 export class AdvertisementsComponent implements OnInit{
-  ads: Advertisement[] = [];
+  ads: Advertisement[];
 
-  constructor(private adService: AdvertisementService , private router: Router) {}
+  constructor(private adService: AdvertisementService , private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const country = params['country'] || '';
+      const city = params['city'] || '';
+      const breed = params['breed'] || '';
+      const age = params['age'] || '';
+      const gender = params['gender'] || '';
 
+      this.adService.searchAds(country, city, breed, age, gender).subscribe({
+        next: (response: Advertisement[]) => {
+          this.ads = response;
+        },
+        error: () => {
+
+        }
+      })
+    })
   }
 
-  seeAd(ad: Advertisement): void {
-    this.router.navigate(['advertisement', ad]);
+  seeAd(adId: number | undefined): void {
+    if(adId) {
+      this.router.navigate(['/advertisement', adId]);
+    } else {
+      console.log("Invalid ID");
+    }
+
   }
 }

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class AdvertisementDto {
+    private Long id;
     private String title;
     private LocalDateTime timeOfCreation;
     private String description;

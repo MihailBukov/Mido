@@ -14,7 +14,7 @@ export class AdvertisementService {
 
   searchAds(country: string, city: string, breed: string,
     age: string, gender: string): Observable<Advertisement[]> {
-    return this.http.get<Advertisement[]>(`${this.baseUrl}/users?username=${country}?city=${city}?breed=${breed}?age=${age}?gender=${gender}`);
+    return this.http.get<Advertisement[]>(`${this.baseUrl}?country=${country}&city=${city}&breed=${breed}&age=${age}&gender=${gender}`);
   }
 
   createAd(ad: Advertisement): Observable<void> {

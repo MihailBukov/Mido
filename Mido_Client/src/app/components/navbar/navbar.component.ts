@@ -8,7 +8,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private router: Router, private authService: AuthService) {}
+  username: string | undefined = '';
+
+  constructor(private router: Router, private authService: AuthService) {
+    this.username = authService.currentUserValue?.username;
+  }
 
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();

@@ -8,12 +8,14 @@
 <body>
     <div class="advertisements-container">
         <h2>Search Results</h2>
-        <div *ngIf="ads.length === 0">No advertisements found.</div>
-        <div *ngFor="let ad of ads" class="advertisement-card" (click)="seeAd(ad)">
-          <h3>{{ ad.title }}</h3>
-          <p><strong>Breed:</strong> {{ ad.dogBreed }}</p>
-          <p><strong>Location:</strong> {{ ad.city }}, {{ ad.country }}</p>
+        <div *ngIf="ads.length === 0" class="no-ads">No advertisements found.</div>
+        <div *ngFor="let ad of ads" (click)="seeAd(ad.id)">
+          <div id="ad-card">
+            <h3>{{ ad.title }}</h3>
+            <p><strong>Breed:</strong> {{ ad.dogBreed }}</p>
+            <p><strong>Location:</strong> {{ ad.city }}, {{ ad.country }}</p>
+          </div>  
         </div>
-      </div>
+    </div>
 </body>
 </html>
