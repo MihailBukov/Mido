@@ -23,4 +23,8 @@ export class RatingService {
   deleteRating(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  getAllRatings(username: string): Observable<UserRating[]> { 
+    return this.http.get<UserRating[]>(`${this.baseUrl}/${username}`);
+  }
 }

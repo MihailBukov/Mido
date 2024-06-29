@@ -8,7 +8,6 @@ import { AdvertisementsComponent } from './components/advertisements/advertiseme
 import { ClientComponent } from './components/client/client.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { AuthGuard } from './guards/auth.guard';
-import { ChatComponent } from './components/chat/chat.component';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
 import {ProfileComponent} from "./components/profile/profile.component";
 
@@ -52,11 +51,6 @@ const routes: Routes = [
   {
     path: 'pet-shelter/:id',
     component: PetShelterComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'chat/:username',
-    component: ChatComponent,
     canActivate: [AuthGuard]
   },
   {

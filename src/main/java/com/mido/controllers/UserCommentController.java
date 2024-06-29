@@ -4,6 +4,7 @@ import com.mido.dtos.UserCommentDto;
 import com.mido.dtos.requests.UserCommentRequest;
 import com.mido.services.UserCommentService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class UserCommentController {
     private final UserCommentService userCommentService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<List<UserCommentDto>> getUserRating(@PathVariable String username) {
+    public ResponseEntity<List<UserCommentDto>> getUserComments(@PathVariable String username) {
         return new ResponseEntity<>(userCommentService.getCommentsByUserUsername(username), HttpStatus.OK);
     }
 
