@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PetShelterService {
 
-    private PetShelterRepository petShelterRepository;
+    private final PetShelterRepository petShelterRepository;
 
     public void createPetShelter(PetShelter petShelterToCreate) {
         if (!petShelterToCreate.getRole().equals(Role.PET_SHELTER)) {

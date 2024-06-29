@@ -11,6 +11,7 @@ import com.mido.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,11 +43,13 @@ public class AuthenticationService {
         if (Role.CLIENT.equals(request.role())) {
             validateClientRegisterParams(request);
             Client client = clientMapper.registerRequestToClient(request);
+            client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
             client.setPhotoFilePath(photoFilePath);
             clientService.createClient(client);
         } else if (Role.PET_SHELTER.equals(request.role())) {
             validatePetShelterRegisterParams(request);
             PetShelter petShelter = petShelterMapper.registerRequestToPetShelter(request);
+            petShelter.setPassword(new BCryptPasswordEncoder().encode(petShelter.getPassword()));
             petShelter.setPhotoFilePath(photoFilePath);
             petShelterService.createPetShelter(petShelter);
         } else {

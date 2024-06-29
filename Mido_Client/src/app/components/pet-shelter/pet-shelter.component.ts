@@ -40,38 +40,6 @@ export class PetShelterComponent implements OnInit{
 
   }
 
-  getName() {
-    return this.petShelterForm.controls['name'];
-  }
-
-  getCountry() {
-    return this.petShelterForm.controls['country'];
-  }
-
-  getCity() {
-    return this.petShelterForm.controls['city'];
-  }
-
-  getCapacity() {
-    return this.petShelterForm.controls['capacity'];
-  }
-
-  getAddress() {
-    return this.petShelterForm.controls['address'];
-  }
-
-  getDescription() {
-    return this.petShelterForm.controls['description'];
-  }
-
-  getPhoto() {
-    return this.petShelterForm.controls['photo'];
-  }
-
-  getVerification() {
-    return this.petShelterForm.controls['isVerified'];
-  }
-
   createShelter() {
     const petShelter = { ...this.petShelterForm.value };
     this.authService.createShelter(petShelter as PetShelter).subscribe(
