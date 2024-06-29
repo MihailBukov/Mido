@@ -19,28 +19,36 @@ export class HomeComponent implements OnInit{
   });
 
   countries: string[] = ['Bulgaria'];
-  cities: string[] = ['Sofia', 'Plovdiv', 'Burgas'];
+  cities: string[] = ['Sofia', 'Plovdiv', 'Varna', 'Burgas'];
   breeds: string[] = ['German Shepherd', 'Labrador', 'Staffordshire Bull Terrier', 'Jack Russell Terrier'];
   ages: string[] = ['0-3', '3-6','6-9', 'older'];
   genders: string[] = ['Male', 'Female'];
 
-  constructor(private fb: FormBuilder, private adService: AdvertisementService,
-    private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
   }
 
   searchAds() {
     const search = { ...this.searchForm.value };
-    this.adService.searchAds(search.country ?? '', search.city ?? '', search.breed ?? '',
-       search.age ?? '', search.gender ?? '').subscribe(
-        (response: Advertisement[]) => {
-          const ads = response.values;
-          this.router.navigate(['advertisements', ads]);
-        },
-      error => {
-        console.log(error)//a display message can also be added
+    // this.adService.searchAds(search.country ?? '', search.city ?? '', search.breed ?? '',
+    //    search.age ?? '', search.gender ?? '').subscribe(
+    //     (response: Advertisement[]) => {
+    //       this.router.navigate(['/advertisements'], { state: { ads: response } });
+    //     },
+    //   error => {
+    //     console.log(error)
+    //   }
+    // )
+
+    this.router.navigate(['/advertisements'], {
+      queryParams: {
+        country: this.searchForm.get('country')?.value ?? '',
+        city: this.searchForm.get('city')?.value ?? '',
+        breed: this.searchForm.get('breed')?.value ?? '',
+        age: this.searchForm.get('age')?.value ?? '',
+        gender: this.searchForm.get('gender')?.value ?? ''
       }
-    )
+    });
   }
 }

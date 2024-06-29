@@ -91,4 +91,12 @@ export class AuthService {
     this.cookieService.delete('access_token');
     this.router.navigate(['login']);
   }
+
+  getClient(id: number): Observable<Client>{
+    return this.http.get<Client>(`${this.baseUrl}/client/${id}`);
+  }
+
+  getPetShelter(id: number): Observable<PetShelter>{
+    return this.http.get<PetShelter>(`${this.baseUrl}/pet-shelter/${id}`);
+  }
 }

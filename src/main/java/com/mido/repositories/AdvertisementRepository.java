@@ -13,9 +13,9 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
             "(:country = '' OR a.country = :country) AND " +
             "(:city = '' OR a.city = :city) AND " +
             "(:breed = '' OR a.dogBreed = :breed) AND " +
-            "(a.dogAge = :age) AND " +
+            "(a.dogAge >= :fromAge AND a.dogAge < :toAge) AND " +
             "(:gender = '' OR a.dogGender = :gender)")
     List<Advertisement> searchAdvertisements(@Param("country") String country, @Param("city") String city,
-                                             @Param("breed") String breed, @Param("age") Integer age,
-                                             @Param("gender") String gender);
+                                             @Param("breed") String breed, @Param("fromAge") Integer fromAge,
+                                             @Param("toAge") Integer toAge, @Param("gender") String gender);
 }

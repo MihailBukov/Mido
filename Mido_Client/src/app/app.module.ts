@@ -15,7 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ProfileComponent } from './components/profile/profile.component'
-import { NotificationModule } from "@progress/kendo-angular-notification";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {JwtInterceptor} from "./interceptors/jwt_interceptor";
 
 @NgModule({
@@ -39,7 +39,7 @@ import {JwtInterceptor} from "./interceptors/jwt_interceptor";
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    NotificationModule
+    BrowserAnimationsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]

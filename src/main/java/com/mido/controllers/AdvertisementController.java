@@ -27,7 +27,7 @@ public class AdvertisementController {
             @RequestParam(required = false) String country,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) String breed,
-            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) String age,
             @RequestParam(required = false) String gender) {
 
         List<AdvertisementDto> ads = adService.searchAdvertisements(country, city, breed, age, gender);

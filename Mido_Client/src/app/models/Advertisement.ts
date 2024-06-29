@@ -12,4 +12,5 @@ export interface Advertisement {
     country: string;
     city: string;
     createdBy: string;
+    photo?: string;
 }

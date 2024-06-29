@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
             Exception.class,
             RuntimeException.class,
             NoSuchElementException.class})
-    public ResponseEntity<Object> handleStudentAlreadyExistsException(IOException exception) {
+    public ResponseEntity<Object> handleStudentAlreadyExistsException(Exception exception) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(exception.getMessage());

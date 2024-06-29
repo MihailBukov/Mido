@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NotificationService } from '@progress/kendo-angular-notification';
 import { Advertisement } from 'src/app/models/Advertisement';
+import { User } from 'src/app/models/User';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create-advertisement',
@@ -11,6 +12,8 @@ import { AdvertisementService } from 'src/app/services/advertisement.service';
   styleUrls: ['./create-advertisement.component.css']
 })
 export class CreateAdvertisementComponent implements OnInit{
+
+  currentUser: User | null;
 
   createAdForm = this.fb.group({
     title: ['', Validators.required],
@@ -21,38 +24,35 @@ export class CreateAdvertisementComponent implements OnInit{
     dogBreed: ['', Validators.required],
     dogGender: ['', Validators.required],
     dogColor: ['', Validators.required],
-    photo: ['']
+    country: ['', Validators.required],
+    city: ['', Validators.required],
+    createdBy: [''],
+    photo: [null]
   });
 
   constructor(private fb: FormBuilder, private adService: AdvertisementService,
-    private router: Router, private notificationService: NotificationService) {}
+    private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    
+    this.currentUser = this.authService.currentUserValue;
   }
 
   createAd() {
     const ad = { ...this.createAdForm.value };
+    ad.createdBy = this.currentUser?.username;
     this.adService.createAd(ad as Advertisement).subscribe(
       response => {
-        this.notificationService.show({
-          content: 'Advertisement is created.',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
       },
       error => {
-        this.notificationService.show({
-          content: 'There was an error while creating the advertisement',
-          type: { style: 'error', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
       }
     )
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    this.createAdForm.patchValue({
+      photo: file
+    });
   }
 }

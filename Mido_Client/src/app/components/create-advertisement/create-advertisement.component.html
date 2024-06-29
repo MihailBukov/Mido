@@ -21,50 +21,64 @@
             <input type="description" id="description" formControlName="description">
           </div>
           <div class="input-group">
-            <label for="dogName">Dog Name</label>
+            <label for="dogName">Name</label>
             <input type="dogName" id="dogName" formControlName="dogName">
             <small style="color:red" *ngIf="createAdForm.controls['dogName'].invalid && (createAdForm.controls['dogName'].dirty || createAdForm.controls['dogName'].touched)">
                 <div *ngIf="createAdForm.controls['dogName'].errors?.['required']">Dog Name is required.</div>
             </small>
           </div>
           <div class="input-group">
-            <label for="dogAge">Dog Age</label>
+            <label for="dogAge">Age</label>
             <input type="dogAge" id="dogAge" formControlName="dogAge">
             <small style="color:red" *ngIf="createAdForm.controls['dogAge'].invalid && (createAdForm.controls['dogAge'].dirty || createAdForm.controls['dogAge'].touched)">
                 <div *ngIf="createAdForm.controls['dogAge'].errors?.['required']">Dog Age is required.</div>
             </small>
           </div>
           <div class="input-group">
-            <label for="dogKg">Dog Kilograms</label>
+            <label for="dogKg">Kilograms</label>
             <input type="dogKg" id="dogKg" formControlName="dogKg">
             <small style="color:red" *ngIf="createAdForm.controls['dogKg'].invalid && (createAdForm.controls['dogKg'].dirty || createAdForm.controls['dogKg'].touched)">
                 <div *ngIf="createAdForm.controls['dogKg'].errors?.['required']">Dog Kilograms is required.</div>
             </small>
           </div>
           <div class="input-group">
-            <label for="dogBreed">Dog Breed</label>
+            <label for="dogBreed">Breed</label>
             <input type="dogBreed" id="dogBreed" formControlName="dogBreed">
             <small style="color:red" *ngIf="createAdForm.controls['dogBreed'].invalid && (createAdForm.controls['dogBreed'].dirty || createAdForm.controls['dogBreed'].touched)">
                 <div *ngIf="createAdForm.controls['dogBreed'].errors?.['required']">Dog Breed is required.</div>
             </small>
           </div>
           <div class="input-group">
-            <label for="dogGender">Dog Gender</label>
+            <label for="dogGender">Gender</label>
             <input type="dogGender" id="dogGender" formControlName="dogGender">
             <small style="color:red" *ngIf="createAdForm.controls['dogGender'].invalid && (createAdForm.controls['dogGender'].dirty || createAdForm.controls['dogGender'].touched)">
                 <div *ngIf="createAdForm.controls['dogGender'].errors?.['required']">Dog Gender is required.</div>
             </small>
           </div>
           <div class="input-group">
-            <label for="dogColor">Dog Color</label>
+            <label for="dogColor">Color</label>
             <input type="dogColor" id="dogColor" formControlName="dogColor">
             <small style="color:red" *ngIf="createAdForm.controls['dogColor'].invalid && (createAdForm.controls['dogColor'].dirty || createAdForm.controls['dogColor'].touched)">
                 <div *ngIf="createAdForm.controls['dogColor'].errors?.['required']">Dog Color is required.</div>
             </small>
           </div>
           <div class="input-group">
-            <label for="photo">Photo</label>
-            <input type="photo" id="photo" formControlName="photo">
+            <label for="country">Country</label>
+            <input type="country" id="country" formControlName="country">
+            <small style="color:red" *ngIf="createAdForm.controls['country'].invalid && (createAdForm.controls['country'].dirty || createAdForm.controls['country'].touched)">
+                <div *ngIf="createAdForm.controls['country'].errors?.['required']">Country is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="city">City</label>
+            <input type="city" id="city" formControlName="city">
+            <small style="color:red" *ngIf="createAdForm.controls['city'].invalid && (createAdForm.controls['city'].dirty || createAdForm.controls['city'].touched)">
+                <div *ngIf="createAdForm.controls['city'].errors?.['required']">City is required.</div>
+            </small>
+          </div>
+          <div class="input-group">
+            <label for="picture">Picture</label>
+            <input type="file" id="picture" (change)="onFileChange($event)">
           </div>
           <button type="submit">Create Advertisement</button>
         </form>

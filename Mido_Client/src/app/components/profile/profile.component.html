@@ -6,7 +6,7 @@
     <title>Mido</title>
 </head>
 <body>
-    <div *ngIf="role === 'CLIENT'">
+    <div *ngIf="currentUser?.role === 'CLIENT'">
         <h2>Client Details</h2>
         <div class="client-info">
             <p><strong>First Name:</strong> {{ client.firstName }}</p>
@@ -20,7 +20,7 @@
         </div>
     </div>
     
-    <div *ngIf="role === 'PET_SHELTER'">
+    <div *ngIf="currentUser?.role === 'PET_SHELTER'">
         <h2>Pet Shelter Details</h2>
         <div class="pet-shelter-info">
             <p><strong>Name:</strong> {{ petShelter.name }}</p>
@@ -41,12 +41,12 @@
         </div>
     </div>
 
-    <div class="button-section">
-        <button id="leaveCommentBtn">Leave a Comment</button>
-        <button (click)="messageUser()" id="messageBtn">Message User</button>
+    <div class="button-section" *ngIf="username != currentUser?.username">
+        <button (click)="activateImpressionForm()"d="leaveCommentBtn">Leave a Comment</button>
+        <button (click)="activateMessageForm()" id="messageBtn">Message User</button>
     </div>
 
-    <div class="form" id="form">
+    <div class="impressionForm" id="form" *ngIf="impressionFormActivated">
         <form [formGroup]="impressionForm" (ngSubmit)="takeImpression()">
             <label for="comment">Comment:</label>
             <input type="text" id="comment" name="comment" required>
@@ -56,16 +56,12 @@
         </form>
     </div>
 
-    <script>
-         document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('leaveCommentBtn');
-            const form = document.getElementById('form');
-
-            toggleButton.addEventListener('click', function() {
-            form.classList.toggle('show'); 
-            toggleButton.textContent = form.classList.contains('show') ? 'Hide Form' : 'Show Form';
-            });
-        });
-    </script>
+    <div class="message-form" id="form" *ngIf="messageFormActivated">
+        <form [formGroup]="messageForm" (ngSubmit)="messageUser()">
+            <label for="comment">Message:</label>
+            <input type="text" id="text" name="text" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

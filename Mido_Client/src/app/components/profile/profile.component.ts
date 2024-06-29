@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationService } from '@progress/kendo-angular-notification';
 import { Client } from 'src/app/models/Client';
 import { Message } from 'src/app/models/Message';
 import { PetShelter } from 'src/app/models/PetShelter';
@@ -19,6 +18,7 @@ import { RatingService } from 'src/app/services/rating.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
+  currentUser: User | null;
   username: string = '';
   role!: string;
   client!: Client;
@@ -26,10 +26,11 @@ export class ProfileComponent implements OnInit{
   comment!: UserComment;
   rating!: UserRating;
   message!: Message;
+  impressionFormActivated: boolean = false;
+  messageFormActivated: boolean = false;
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder,
-    private userCommentService: CommentService, private userRatingService: RatingService, private messageService: MessageService,
-    private notificationService: NotificationService) {}
+    private userCommentService: CommentService, private userRatingService: RatingService, private messageService: MessageService) {}
 
   impressionForm = this.fb.group({
       comment: [''],
@@ -41,78 +42,100 @@ export class ProfileComponent implements OnInit{
   });
 
   ngOnInit(): void {
+    this.currentUser = this.authService.currentUserValue;
     this.username = this.route.snapshot.params['username'];
 
-    this.authService.getUserByUsername(this.username).subscribe(
-      (response: User) => {
-        this.role = !!response.role ? response.role.toString() : '';
-      },
-      error => {
-        console.error(error);
-      }
-    );
-
-    if(this.role === 'CLIENT') {
-      //here use client service to set the client
+    if(this.username != this.currentUser?.username) {
+      this.authService.getUserByUsername(this.username).subscribe(
+        (response: User) => {
+          this.role = !!response.role ? response.role.toString() : '';
+        },
+        error => {
+          console.error(error);
+        }
+      );
     } else {
-      //here use pet shelter service to set the pet shelter
+      this.role = !!this.currentUser?.role ? this.currentUser?.role.toString() : '';
+    }
+    
+    const id = !!this.currentUser?.id ? this.currentUser.id : 0;
+    if(this.role === 'CLIENT') {
+      this.authService.getClient(id).subscribe({
+        next: (response) => {
+          this.client = response;
+        },
+        error: () => {
+          
+        }
+      });
+    } else {
+      this.authService.getPetShelter(id).subscribe({
+        next: (response) => {
+          this.petShelter = response;
+        },
+        error: () => {
+          
+        }
+      });
     }
   }
 
   takeImpression() {
     const commentText = this.impressionForm.get('comment')?.value;
-    //this.comment now should be set using the commentText, the advertisement id and the current user id
+    this.comment = {
+      writtenTo: this.username,
+      comment: !!commentText ? commentText : '',
+      writtenBy: !!this.currentUser?.username ? this.currentUser.username : ''
+    }
     this.userCommentService.createComment(this.comment as UserComment).subscribe(
       response => {
-        this.notificationService.show({
-          content: 'Comment has been created',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
-        this.router.navigate(['']); //should navigate you back to the same profile. Purpose is to refresh.
+        this.router.navigate(['/profile', this.username]);
       },
       error => {
-        this.notificationService.show({
-          content: 'There was an error while leaving the comment.',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
+
       }
     );
 
     const ratingNum = this.impressionForm.get('rating')?.value;
-    //this.rating should be set using ratingNum and the users
+    this.rating = {
+      rating: !!ratingNum ? ratingNum : 0,
+      userRated: this.username,
+      userRates: !!this.currentUser?.username ? this.currentUser.username : ''
+    }
     this.userRatingService.createRating(this.rating as UserRating).subscribe(
       response => {
-        this.notificationService.show({
-          content: 'Rating has been created',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
-        this.router.navigate(['profile']); //should navigate you back to the same profile. Purpose is to refresh.
+        this.router.navigate(['/profile', this.username]);
       },
       error => {
-        this.notificationService.show({
-          content: 'There was an error while leaving a rating.',
-          type: { style: 'error', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
+
       }
     )
   }
 
   messageUser() {
     const messageText = this.messageForm.get('messageText')?.value;
-    //this.message should be set here
+    this.message = {
+      text: !!messageText ? messageText : '',
+      senderUsername: !!this.currentUser?.username ? this.currentUser.username : '',
+      receiverUsername: this.username
+    }
     this.messageService.sendMessage(this.message);
-    this.router.navigate(['chat', this.username]);// here username represents the receiver in the new chat
+    this.router.navigate(['chat', this.username]);
+  }
+
+  activateImpressionForm() {
+    if(this.impressionFormActivated) {
+      this.impressionFormActivated = false;
+    } else {
+      this.impressionFormActivated = true;
+    }
+  }
+
+  activateMessageForm() {
+    if(this.messageFormActivated) {
+      this.messageFormActivated = false;
+    } else {
+      this.messageFormActivated = true;
+    }
   }
 }

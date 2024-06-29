@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationService } from '@progress/kendo-angular-notification';
 import { PetShelter } from 'src/app/models/PetShelter';
 import { Role } from 'src/app/models/Role';
 import { Status } from 'src/app/models/Status';
-import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -34,7 +32,7 @@ export class PetShelterComponent implements OnInit{
   })
 
   constructor(private fb: FormBuilder, private authService: AuthService,
-    private router: Router, private route: ActivatedRoute, private notificationService: NotificationService) {}
+    private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
@@ -44,23 +42,11 @@ export class PetShelterComponent implements OnInit{
     const petShelter = { ...this.petShelterForm.value };
     this.authService.createShelter(petShelter as PetShelter).subscribe(
       response => {
-        this.notificationService.show({
-          content: 'Pet Shelter has been created',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
+
         this.router.navigate(['home']);
       },
       error => {
-        this.notificationService.show({
-          content: 'There was an error while creating the pet shelter',
-          type: { style: 'error', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
+
       }
     )
   }

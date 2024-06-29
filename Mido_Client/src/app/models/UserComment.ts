@@ -2,7 +2,7 @@ import { User } from "./User";
 
 export interface UserComment {
     id?: number;
-    writtenTo: User;
+    writtenTo: string;
     comment: string;
-    writtenBy: User;
+    writtenBy: string;
 }

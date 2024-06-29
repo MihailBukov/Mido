@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationService } from '@progress/kendo-angular-notification';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementComment } from 'src/app/models/AdvertisementComment';
 import { Message } from 'src/app/models/Message';
+import { User } from 'src/app/models/User';
 import { AdvertisementCommentService } from 'src/app/services/advertisement-comment.service';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 
 @Component({
@@ -15,14 +16,18 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./advertisement.component.css']
 })
 export class AdvertisementComponent implements OnInit{
+  adId: number;
+  currentUser: User | null;
   ad!: Advertisement;
   comments: AdvertisementComment[] = [];
   comment!: AdvertisementComment;
   message!: Message;
+  commentFormActivated: boolean = false;
+  messageFormActivated: boolean = false;
 
   constructor(private adService: AdvertisementService, private adCommentsService: AdvertisementCommentService, 
     private messageService: MessageService, private route: ActivatedRoute, private fb: FormBuilder, private router: Router,
-    private notificationService: NotificationService) {}
+    private authService: AuthService) {}
 
   commentForm = this.fb.group({
       comment: ['']
@@ -33,10 +38,20 @@ export class AdvertisementComponent implements OnInit{
   });
 
   ngOnInit(): void {
-    this.ad = this.route.snapshot.params['ad'];
+    this.currentUser = this.authService.currentUserValue;
+    this.adId = this.route.snapshot.params['id'];
+    this.adService.getAd(this.adId).subscribe({
+      next: (response: Advertisement) => {
+        this.ad = response;
+      }, 
+      error: () => {
 
-    if(this.ad && this.ad.id) {
-      this.adCommentsService.getAllAdComments(this.ad.id)
+      }
+    });
+
+    
+    if(this.ad && this.adId) {
+      this.adCommentsService.getAllAdComments(this.adId)
       .subscribe(
         (data: AdvertisementComment[]) => {
           this.comments = data;
@@ -53,23 +68,10 @@ export class AdvertisementComponent implements OnInit{
     //this.comment now should be set using the commentText, the advertisement id and the current user id
     this.adCommentsService.createAdComment(this.comment as AdvertisementComment).subscribe(
       response => {
-        this.notificationService.show({
-          content: 'New comment has been created.',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
         this.router.navigate(['advertisement', this.ad?.id]);
       }, 
       error => {
-        this.notificationService.show({
-          content: 'There was an error while creating the new comment.',
-          type: { style: 'error', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
+
       }
     );
   }
@@ -83,6 +85,22 @@ export class AdvertisementComponent implements OnInit{
     //here this.message should be set using messageText, sender and receiver username
     this.messageService.sendMessage(this.message);
     this.router.navigate(['chat', receiverUsername]);// here username represents the receiver in the new chat
+  }
+
+  activateCommentForm() {
+    if(this.commentFormActivated) {
+      this.commentFormActivated = false;
+    } else {
+      this.commentFormActivated = true;
+    }
+  }
+
+  activateMessageForm() {
+    if(this.messageFormActivated) {
+      this.messageFormActivated = false;
+    } else {
+      this.messageFormActivated = true;
+    }
   }
 
 }
