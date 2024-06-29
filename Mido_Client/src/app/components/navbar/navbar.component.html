@@ -3,7 +3,6 @@
         <div *ngIf="isLoggedIn()">
             <a href="/home">Home</a>
             <a [routerLink]="['/profile', username]">Profile</a>
-            <a href="/messeges">Messeges</a>
             <a href="/create-advertisement">Create Advertisement</a>
             <a (click)="logout()">Log Out</a>
         </div>
