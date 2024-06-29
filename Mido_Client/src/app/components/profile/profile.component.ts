@@ -48,14 +48,14 @@ export class ProfileComponent implements OnInit {
     this.username = this.route.snapshot.params['username'];
 
     if (this.username != this.currentUser?.username) {
-      this.authService.getUserByUsername(this.username).subscribe(
-        (response: User) => {
+      this.authService.getUserByUsername(this.username).subscribe({
+        next: (response: User) => {
           this.role = !!response.role ? response.role.toString() : '';
         },
-        error => {
-          console.error(error);
+        error: () => {
+          
         }
-      );
+      });
     } else {
       this.role = !!this.currentUser?.role ? this.currentUser?.role.toString() : '';
     }

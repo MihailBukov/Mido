@@ -38,7 +38,7 @@
   <div class="comments">
     <div *ngIf="comments.length === 0">No comments found.</div>
     <div *ngFor="let comment of comments" class="comment-card">
-      <p><strong>Written By:</strong>{{ comment.writtenBy }}</p>
+      <p><strong>Written By:</strong> {{ comment.writtenByUsername }}</p>
       <p>{{ comment.comment }}</p>
     </div>
   </div>

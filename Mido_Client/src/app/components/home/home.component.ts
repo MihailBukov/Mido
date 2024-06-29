@@ -31,16 +31,6 @@ export class HomeComponent implements OnInit{
 
   searchAds() {
     const search = { ...this.searchForm.value };
-    // this.adService.searchAds(search.country ?? '', search.city ?? '', search.breed ?? '',
-    //    search.age ?? '', search.gender ?? '').subscribe(
-    //     (response: Advertisement[]) => {
-    //       this.router.navigate(['/advertisements'], { state: { ads: response } });
-    //     },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
-
     this.router.navigate(['/advertisements'], {
       queryParams: {
         country: this.searchForm.get('country')?.value ?? '',
