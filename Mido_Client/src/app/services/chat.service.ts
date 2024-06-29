@@ -9,7 +9,7 @@ import { Message } from '../models/Message';
 })
 export class ChatService {
 
-  private baseUrl = 'localhost:8080/api/chat';
+  private baseUrl = 'http://localhost:8080/api/chat';
 
   constructor(private http: HttpClient) { }
 

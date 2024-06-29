@@ -10,12 +10,13 @@ import { HomeComponent } from './components/home/home.component';
 import { PetShelterComponent } from './components/pet-shelter/pet-shelter.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateAdvertisementComponent } from './components/create-advertisement/create-advertisement.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ProfileComponent } from './components/profile/profile.component'
 import { NotificationModule } from "@progress/kendo-angular-notification";
+import {JwtInterceptor} from "./interceptors/jwt_interceptor";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { NotificationModule } from "@progress/kendo-angular-notification";
     FormsModule,
     NotificationModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

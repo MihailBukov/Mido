@@ -5,6 +5,7 @@ import com.mido.services.JwtService;
 import com.mido.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         final String jwt = authHeader.substring(JWT_START_POSITION);
-        final String username = jwtService.extractUsername(jwt);
+        String username = null;
+        try {
+            username = jwtService.extractUsername(jwt);
+        } catch (Exception e) {
+            Cookie cookie = new Cookie("access_token", null);
+            cookie.setMaxAge(0);
+            cookie.setSecure(false);
+            cookie.setHttpOnly(false);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            throw e;
+        }
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             User user = userService.loadUserByUsername(username);
             if (jwtService.isTokenValid(jwt, user)) {
