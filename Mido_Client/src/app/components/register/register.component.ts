@@ -98,7 +98,7 @@ export class RegisterComponent implements OnInit {
       city: this.registerForm.get('city')?.value ?? '',
       description: this.registerForm.get('description')?.value ?? ''
     };
-    if (this.registerForm.get('role')?.value === 'Client') {
+    if (this.registerForm.get('role')?.value === 'client') {
       userRegistered = {
         ...userRegistered,
         firstName: this.registerForm.get('firstName')?.value ?? '',
@@ -117,19 +117,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(JSON.stringify(userRegistered), this.registerForm.get('picture')?.value ?? null).subscribe({
       next: () => {
-        this.notificationService.show({
-          content: 'User has been registered',
-          type: { style: 'success', icon: true },
-          animation: { type: 'slide', duration: 600 },
-          position: { horizontal: 'center', vertical: 'bottom'},
-          closable: true
-        });
-        if(userRegistered.role === Role.CLIENT) {
-          this.router.navigate(['client', userRegistered.username]);
-        }
-        else {
-          this.router.navigate(['pet-shelter', userRegistered.username]);
-        }
+        this.router.navigate(['home']);
       },
       error: () => {
         this.notificationService.show({
