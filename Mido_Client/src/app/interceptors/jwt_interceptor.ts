@@ -14,8 +14,10 @@ export class JwtInterceptor implements HttpInterceptor {
     if (!!fullToken) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${fullToken}`
-        }
+          Authorization: `Bearer ${fullToken}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+        withCredentials: true
       })
     }
 

@@ -21,7 +21,7 @@ export class CreateAdvertisementComponent implements OnInit{
     dogBreed: ['', Validators.required],
     dogGender: ['', Validators.required],
     dogColor: ['', Validators.required],
-    photo: [0]
+    photo: ['']
   });
 
   constructor(private fb: FormBuilder, private adService: AdvertisementService,
