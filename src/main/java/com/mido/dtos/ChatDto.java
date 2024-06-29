@@ -7,7 +7,7 @@ import lombok.Data;
 public class ChatDto {
     private String chatName;
 
-    private User sender;
+    private String sender;
 
-    private User receiver;
+    private String receiver;
 }
