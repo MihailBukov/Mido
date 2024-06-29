@@ -1,0 +1,114 @@
+/* profile.component.css */
+
+/* General styling for the page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f7f7f7;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .client-info, .pet-shelter-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .client-info p, .pet-shelter-info p {
+    margin: 8px 0;
+  }
+  
+  .client-info p strong, .pet-shelter-info p strong {
+    color: #555;
+  }
+  
+  .button-section {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  #leaveCommentBtn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #leaveCommentBtn:hover {
+    background-color: #0056b3;
+  }
+  
+  .impressionForm {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .impressionForm form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .impressionForm label {
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .impressionForm input[type="text"], .impressionForm input[type="number"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .impressionForm button[type="submit"] {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .impressionForm button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .comments {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comments .comment-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .comments .comment-card p {
+    margin: 5px 0;
+  }
+  
+  .comments .comment-card p strong {
+    color: #555;
+  }
+  
