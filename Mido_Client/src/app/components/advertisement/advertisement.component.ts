@@ -55,7 +55,7 @@ export class AdvertisementComponent implements OnInit {
     this.comment = {
       advertisementId: this.adId,
       comment: !!commentText ? commentText : '',
-      writtenBy: !!this.currentUser?.username ? this.currentUser.username : ''
+      writtenByUsername: !!this.currentUser?.username ? this.currentUser.username : ''
     }
     this.adCommentsService.createAdComment(this.comment as AdvertisementComment).subscribe({
       next: () => {
@@ -68,7 +68,7 @@ export class AdvertisementComponent implements OnInit {
   }
 
   viewProfile(username: string) {
-    this.router.navigate(['profile', username]);
+    this.router.navigate(['/profile', username]);
   }
 
   activateCommentForm() {

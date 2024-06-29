@@ -1,6 +1,7 @@
 package com.mido.controllers;
 
 import com.mido.dtos.UserDto;
+import com.mido.mappers.UserMapper;
 import com.mido.models.User;
 import com.mido.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @GetMapping("/get")
     public ResponseEntity<List<UserDto>> searchForUser(
@@ -29,16 +31,13 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<UserDto> getUser(@PathVariable String username) {
-        return new ResponseEntity<>(HttpStatus.OK);
+        User userWanted = userService.loadUserByUsername(username);
+        UserDto userDto = userMapper.userToUserDto(userWanted);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{username}")
     public ResponseEntity<UserDto> updateUser(@PathVariable String username, @RequestBody UserDto userDto) {
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -71,7 +71,7 @@ export class AuthService {
   }
 
   getUserByUsername(username: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users?username=${username}`);
+    return this.http.get<User>(`${this.baseUrl}/user/${username}`);
   }
 
   createShelter(shelter: PetShelter) {
