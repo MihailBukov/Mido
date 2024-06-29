@@ -10,7 +10,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const fullToken = this.cookieService.get('access_token');
-    console.log(fullToken);
 
     if (!!fullToken) {
       req = req.clone({
@@ -22,6 +21,4 @@ export class JwtInterceptor implements HttpInterceptor {
 
     return next.handle(req);
   }
-
-
 }

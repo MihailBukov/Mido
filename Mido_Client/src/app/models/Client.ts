@@ -7,6 +7,6 @@ export interface Client extends User {
     age?: number;
     country?: string;
     city?: string;
-    photo?: string;
+    photo: string;
     description?: string;
 }

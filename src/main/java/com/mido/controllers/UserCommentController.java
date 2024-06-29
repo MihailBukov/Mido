@@ -35,12 +35,6 @@ public class UserCommentController {
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserCommentDto> getComment(@PathVariable Long id) {
-        UserCommentDto comment = userCommentService.getComment(id);
-        return new ResponseEntity<>(comment, HttpStatus.OK);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         userCommentService.deleteComment(id);
