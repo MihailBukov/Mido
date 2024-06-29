@@ -18,7 +18,12 @@ export class AdvertisementService {
   }
 
   createAd(ad: Advertisement): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}`, ad);
+    return this.http.post<void>(`${this.baseUrl}`, ad, {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
+    });
   }
 
   editAd(id: number, ad: Advertisement): Observable<Advertisement> {
