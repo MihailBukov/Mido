@@ -7,6 +7,6 @@ import lombok.Data;
 public class UserRatingDto {
 
     private Integer rating;
-    private User userRates;
-    private User userRated;
+    private String userRates;
+    private String userRated;
 }

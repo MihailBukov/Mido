@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class UserCommentDto {
-    private User writtenTo;
+    private String writtenTo;
     private String comment;
-    private User writtenBy;
+    private String writtenBy;
 }
