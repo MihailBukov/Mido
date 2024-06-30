@@ -1,38 +1,50 @@
-<div class="home-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="home-container">
     <h1>Mido</h1>
     <h2>Give home to a lovely dog.</h2>
     <form [formGroup]="searchForm" (ngSubmit)="searchAds()">
       <div class="search-section">
-        <label for="country">Country</label>
         <select id="country" formControlName="country">
+          <option value="" disabled selected hidden>Country</option>
           <option *ngFor="let country of countries" [value]="country">{{country}}</option>
         </select>
       </div>
       <div class="search-section">
-        <label for="city">City</label>
         <select id="city" formControlName="city">
+          <option value="" disabled selected hidden>City</option>
           <option *ngFor="let city of cities" [value]="city">{{city}}</option>
         </select>
       </div>
       <div class="search-section">
-        <label for="breed">Breed</label>
         <select id="breed" formControlName="breed">
+          <option value="" disabled selected hidden>Breed</option>
           <option *ngFor="let breed of breeds" [value]="breed">{{breed}}</option>
         </select>
       </div>
       <div class="search-section">
-        <label for="age">Age</label>
         <select id="age" formControlName="age">
+          <option value="" disabled selected hidden>Age</option>
           <option *ngFor="let age of ages" [value]="age">{{age}}</option>
         </select>
       </div>
       <div class="search-section">
-        <label for="gender">Gender</label>
         <select id="gender" formControlName="gender">
+          <option value="" disabled selected hidden>Gender</option>
           <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
         </select>
       </div>
       <button type="submit">Search</button>
     </form>
+  </div>
+  <div class="footer">
     <h3>Created by Dian Vasilev and Mihail Bukov</h3>
   </div>
+</body>
+</html>

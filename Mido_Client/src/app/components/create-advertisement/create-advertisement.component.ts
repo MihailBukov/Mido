@@ -27,7 +27,6 @@ export class CreateAdvertisementComponent implements OnInit{
     country: ['', Validators.required],
     city: ['', Validators.required],
     createdBy: [''],
-    photo: [null]
   });
 
   constructor(private fb: FormBuilder, private adService: AdvertisementService,
@@ -47,12 +46,5 @@ export class CreateAdvertisementComponent implements OnInit{
       error => {
       }
     )
-  }
-
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    this.createAdForm.patchValue({
-      photo: file
-    });
   }
 }

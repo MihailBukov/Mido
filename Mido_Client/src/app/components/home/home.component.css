@@ -1,48 +1,77 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 .home-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .search-section {
-    margin-bottom: 15px;
-  }
-  
-  .search-section label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .search-section input,
-  .search-section select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .results-container {
-    margin-top: 30px;
-  }
-  
-  .results-container h2 {
-    margin-bottom: 20px;
-  }
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.search-section {
+  display: inline-block;
+  margin-top: 100px;
+}
+
+.search-section select {
+  display: block;
+  width: 150px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 0;
+  background-color: white;
+  color: gray;
+}
+
+.search-section select:focus {
+  color: black;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.results-container {
+  margin-top: 30px;
+}
+
+.results-container h2 {
+  margin-bottom: 20px;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  margin-top: auto;
+}

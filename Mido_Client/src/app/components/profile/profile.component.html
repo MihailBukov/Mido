@@ -6,21 +6,23 @@
   <title>Mido</title>
 </head>
 <body>
-<button *ngIf="!this.editMode" type="button" (click)="toggleEditMode()">Edit profile</button>
+
 <div *ngIf="role === 'CLIENT'">
   <h2>Client Details</h2>
   <div class="client-info" *ngIf="!editMode">
-    <p><strong>First Name:</strong> {{ client?.firstName }}</p>
-    <p><strong>Middle Name:</strong> {{ client?.middleName }}</p>
-    <p><strong>Last Name:</strong> {{ client?.lastName }}</p>
-    <p><strong>Age:</strong> {{ client?.age }}</p>
-    <p><strong>Country:</strong> {{ client?.country }}</p>
-    <p><strong>City:</strong> {{ client?.city }}</p>
-    <p><strong>Description:</strong> {{ client?.description }}</p>
+    <p><strong>First Name:</strong> {{ client.firstName }}</p>
+    <p><strong>Middle Name:</strong> {{ client.middleName }}</p>
+    <p><strong>Last Name:</strong> {{ client.lastName }}</p>
+    <p><strong>Age:</strong> {{ client.age }}</p>
+    <p><strong>Country:</strong> {{ client.country }}</p>
+    <p><strong>City:</strong> {{ client.city }}</p>
+    <p><strong>Description:</strong> {{ client.description }}</p>
     <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
   </div>
 
-  <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+  <button *ngIf="!editMode && username === currentUser?.username" type="button" class="edit-btn" (click)="toggleEditMode()">Edit profile</button>
+
+  <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
     <label for="firstName">First Name:</label>
     <input type="text" id="firstName" formControlName="firstName">
 
@@ -42,24 +44,26 @@
     <label for="description">Description:</label>
     <input type="text" id="description" formControlName="description">
 
-    <button type="submit">Save</button>
-    <button type="button" (click)="toggleEditMode()">Cancel</button>
+    <button type="submit" class="edit-btn">Save</button>
+    <button type="button" class="cancel-btn" (click)="toggleEditMode()">Cancel</button>
   </form>
 </div>
 
 <div *ngIf="role === 'PET_SHELTER'">
   <h2>Pet Shelter Details</h2>
   <div class="pet-shelter-info" *ngIf="!editMode">
-    <p><strong>Name:</strong> {{ petShelter?.name }}</p>
-    <p><strong>Country:</strong> {{ petShelter?.country }}</p>
-    <p><strong>City:</strong> {{ petShelter?.city }}</p>
-    <p><strong>Capacity:</strong> {{ petShelter?.capacity }}</p>
-    <p><strong>Address:</strong> {{ petShelter?.address }}</p>
-    <p><strong>Description:</strong> {{ petShelter?.description }}</p>
+    <p><strong>Name:</strong> {{ petShelter.name }}</p>
+    <p><strong>Country:</strong> {{ petShelter.country }}</p>
+    <p><strong>City:</strong> {{ petShelter.city }}</p>
+    <p><strong>Capacity:</strong> {{ petShelter.capacity }}</p>
+    <p><strong>Address:</strong> {{ petShelter.address }}</p>
+    <p><strong>Description:</strong> {{ petShelter.description }}</p>
     <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
   </div>
 
-  <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+  <button *ngIf="!editMode && username === currentUser?.username" type="button" class="edit-btn" (click)="toggleEditMode()">Edit profile</button>
+
+  <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
     <label for="name">Name:</label>
     <input type="text" id="name" formControlName="name">
 
@@ -78,8 +82,10 @@
     <label for="description">Description:</label>
     <input type="text" id="description-shelter" formControlName="description">
 
-    <button type="submit">Save</button>
-    <button type="button" (click)="toggleEditMode()">Cancel</button>
+    <div class="editForm-btns">
+      <button type="submit" class="edit-btn">Save</button>
+      <button type="button" class="cancel-btn" (click)="toggleEditMode()">Cancel</button>
+    </div> 
   </form>
 </div>
 
@@ -95,11 +101,11 @@
     <label for="rating">Rating:</label>
     <input type="number" id="rating" formControlName="rating" min="1" max="5" required>
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="edit-btn">Submit</button>
   </form>
 </div>
 
-<div class="comments">
+<div class="comments" *ngIf="!editMode">
   <div *ngIf="comments.length === 0">No comments found.</div>
   <div *ngFor="let comment of comments" class="comment-card">
     <p><strong>Written By:</strong>{{ comment.writtenBy }}</p>
