@@ -36,7 +36,6 @@ export class RegisterComponent implements OnInit {
       name: [''],
       capacity: [''],
       address: [''],
-      picture: [null]
     });
 
     this.registerForm.get('role')?.valueChanges.subscribe(role => {
@@ -79,12 +78,6 @@ export class RegisterComponent implements OnInit {
     this.registerForm.get('address')?.updateValueAndValidity();
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    this.registerForm.patchValue({
-      picture: file
-    });
-  }
 
   register() {
     let userRegistered: RegisterUserRequest = {
