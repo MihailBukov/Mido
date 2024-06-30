@@ -1,61 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mido</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mido</title>
 </head>
 <body>
-    <div *ngIf="currentUser?.role === 'CLIENT'">
-        <h2>Client Details</h2>
-        <div class="client-info">
-            <p><strong>First Name:</strong> {{ client?.firstName }}</p>
-            <p><strong>Middle Name:</strong> {{ client?.middleName }}</p>
-            <p><strong>Last Name:</strong> {{ client?.lastName }}</p>
-            <p><strong>Age:</strong> {{ client?.age }}</p>
-            <p><strong>Country:</strong> {{ client?.country }}</p>
-            <p><strong>City:</strong> {{ client?.city }}</p>
-            <p><strong>Description:</strong> {{ client?.description }}</p>
-            <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
-        </div>
-    </div>
+<button *ngIf="!this.editMode" type="button" (click)="toggleEditMode()">Edit profile</button>
+<div *ngIf="role === 'CLIENT'">
+  <h2>Client Details</h2>
+  <div class="client-info" *ngIf="!editMode">
+    <p><strong>First Name:</strong> {{ client?.firstName }}</p>
+    <p><strong>Middle Name:</strong> {{ client?.middleName }}</p>
+    <p><strong>Last Name:</strong> {{ client?.lastName }}</p>
+    <p><strong>Age:</strong> {{ client?.age }}</p>
+    <p><strong>Country:</strong> {{ client?.country }}</p>
+    <p><strong>City:</strong> {{ client?.city }}</p>
+    <p><strong>Description:</strong> {{ client?.description }}</p>
+    <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
+  </div>
 
-    <div *ngIf="currentUser?.role === 'PET_SHELTER'">
-        <h2>Pet Shelter Details</h2>
-        <div class="pet-shelter-info">
-            <p><strong>Name:</strong> {{ petShelter?.name }}</p>
-            <p><strong>Country:</strong> {{ petShelter?.country }}</p>
-            <p><strong>City:</strong> {{ petShelter?.city }}</p>
-            <p><strong>Capacity:</strong> {{ petShelter?.capacity }}</p>
-            <p><strong>Address:</strong> {{ petShelter?.address }}</p>
-            <p><strong>Description:</strong> {{ petShelter?.description }}</p>
-            <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
-        </div>
-    </div>
+  <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" formControlName="firstName">
 
-    <div class="button-section" *ngIf="username != currentUser?.username">
-        <button (click)="activateImpressionForm()" id="leaveCommentBtn">Leave a Comment</button>
-    </div>
+    <label for="middleName">Middle Name:</label>
+    <input type="text" id="middleName" formControlName="middleName">
 
-    <div class="impressionForm" id="form" *ngIf="impressionFormActivated">
-        <form [formGroup]="impressionForm" (ngSubmit)="takeImpression()">
-            <label for="comment">Comment:</label>
-            <input type="text" id="comment" formControlName="comment" required>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" formControlName="lastName">
 
-            <label for="rating">Rating:</label>
-            <input type="number" id="rating" formControlName="rating" min="1" max="5" required>
+    <label for="age">Age:</label>
+    <input type="number" id="age" formControlName="age">
 
-            <button type="submit">Submit</button>
-        </form>
+    <label for="country">Country:</label>
+    <input type="text" id="country" formControlName="country">
 
-    </div>
+    <label for="city">City:</label>
+    <input type="text" id="city" formControlName="city">
 
-    <div class="comments">
-        <div *ngIf="comments.length === 0">No comments found.</div>
-        <div *ngFor="let comment of comments" class="comment-card">
-          <p><strong>Written By:</strong>{{ comment.writtenBy }}</p>
-          <p>{{ comment.comment }}</p>
-        </div>
-    </div>
+    <label for="description">Description:</label>
+    <input type="text" id="description" formControlName="description">
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="toggleEditMode()">Cancel</button>
+  </form>
+</div>
+
+<div *ngIf="role === 'PET_SHELTER'">
+  <h2>Pet Shelter Details</h2>
+  <div class="pet-shelter-info" *ngIf="!editMode">
+    <p><strong>Name:</strong> {{ petShelter?.name }}</p>
+    <p><strong>Country:</strong> {{ petShelter?.country }}</p>
+    <p><strong>City:</strong> {{ petShelter?.city }}</p>
+    <p><strong>Capacity:</strong> {{ petShelter?.capacity }}</p>
+    <p><strong>Address:</strong> {{ petShelter?.address }}</p>
+    <p><strong>Description:</strong> {{ petShelter?.description }}</p>
+    <p><strong>Avarage Rating:</strong> {{ avarageRating }}</p>
+  </div>
+
+  <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <label for="country">Country:</label>
+    <input type="text" id="country-shelter" formControlName="country">
+
+    <label for="city">City:</label>
+    <input type="text" id="city-shelter" formControlName="city">
+
+    <label for="capacity">Capacity:</label>
+    <input type="number" id="capacity" formControlName="capacity">
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" formControlName="address">
+
+    <label for="description">Description:</label>
+    <input type="text" id="description-shelter" formControlName="description">
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="toggleEditMode()">Cancel</button>
+  </form>
+</div>
+
+<div class="button-section" *ngIf="username != currentUser?.username">
+  <button (click)="activateImpressionForm()" id="leaveCommentBtn">Leave a Comment</button>
+</div>
+
+<div class="impressionForm" id="form" *ngIf="impressionFormActivated">
+  <form [formGroup]="impressionForm" (ngSubmit)="takeImpression()">
+    <label for="comment">Comment:</label>
+    <input type="text" id="comment" formControlName="comment" required>
+
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" formControlName="rating" min="1" max="5" required>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div class="comments">
+  <div *ngIf="comments.length === 0">No comments found.</div>
+  <div *ngFor="let comment of comments" class="comment-card">
+    <p><strong>Written By:</strong>{{ comment.writtenBy }}</p>
+    <p>{{ comment.comment }}</p>
+  </div>
+</div>
 </body>
 </html>

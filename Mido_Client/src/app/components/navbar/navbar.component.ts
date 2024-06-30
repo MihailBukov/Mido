@@ -9,9 +9,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent {
   username: string | undefined = '';
+  role: string | undefined = '';
 
   constructor(private router: Router, private authService: AuthService) {
-    this.username = authService.currentUserValue?.username;
+    this.authService.getUserObservable.subscribe( (user) => {
+      this.username = user.username;
+      this.role = user.role;
+    })
   }
 
   isLoggedIn(): boolean {

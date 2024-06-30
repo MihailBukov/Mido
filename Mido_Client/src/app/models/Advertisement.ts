@@ -1,3 +1,5 @@
+import {Role} from "./Role";
+
 export interface Advertisement {
     id?: number;
     title: string;
@@ -13,4 +15,5 @@ export interface Advertisement {
     city: string;
     createdBy: string;
     photo?: string;
+    createdByRole: Role;
 }

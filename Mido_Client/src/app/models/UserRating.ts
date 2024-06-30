@@ -4,6 +4,7 @@ export interface UserRating {
     id?: number;
     rating: number;
     userRates: string;
-    userRatesUsername?: string;
+    userRatesName?: string;
     userRated: string;
+    userRatedName?: string;
 }

@@ -1,5 +1,6 @@
 package com.mido.dtos;
 
+import com.mido.models.Role;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,4 +20,5 @@ public class AdvertisementDto {
     private String country;
     private String city;
     private String createdBy;
+    private Role createdByRole;
 }
