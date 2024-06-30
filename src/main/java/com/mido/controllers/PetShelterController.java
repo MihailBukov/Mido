@@ -5,11 +5,7 @@ import com.mido.services.PetShelterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
@@ -19,8 +15,13 @@ public class PetShelterController {
 
     private final PetShelterService petShelterService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PetShelterDto> getPetShelter(@PathVariable long id) {
-        return new ResponseEntity<>(petShelterService.getPetShelterById(id),  HttpStatus.OK);
+    @GetMapping("/{username}")
+    public ResponseEntity<PetShelterDto> getPetShelter(@PathVariable String username) {
+        return new ResponseEntity<>(petShelterService.getPetShelterByUsername(username),  HttpStatus.OK);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<PetShelterDto> putPetShelter(@PathVariable String username, @RequestBody PetShelterDto petShelterDto) {
+        return new ResponseEntity<>(petShelterService.updatePetShelter(username, petShelterDto), HttpStatus.OK);
     }
 }

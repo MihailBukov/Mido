@@ -62,13 +62,13 @@ export class AdvertisementComponent implements OnInit {
         this.router.navigate(['/advertisement', this.adId]);
       },
       error: () => {
-        
+
       }
     });
   }
 
-  viewProfile(username: string) {
-    this.router.navigate(['/profile', username]);
+  viewProfile(username: string, createdByRole: string) {
+    this.router.navigate(['/profile', username, createdByRole]);
   }
 
   activateCommentForm() {

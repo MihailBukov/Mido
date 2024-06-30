@@ -19,10 +19,11 @@ export class AuthService {
   * here are all the services to connect with the backend
   */
   private baseUrl = 'http://localhost:8080/api';//should be something else
-  private currentUser: BehaviorSubject<User | null>;
+  private currentUser: BehaviorSubject<User>;
+  private userObservable: Observable<User>;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
-    this.currentUser = new BehaviorSubject<User | null>(null);
+    this.currentUser = new BehaviorSubject<User>({});
     this.extractUserInformationFromJwtToken();
   }
 
@@ -30,19 +31,25 @@ export class AuthService {
     const fullToken = this.cookieService.get('access_token');
 
     if (fullToken === "") {
-      this.currentUser = new BehaviorSubject<User | null>(null);
+      this.currentUser = new BehaviorSubject<User>({});
     } else {
       const decodedToken = jwtDecode<User>(fullToken);
       if (!decodedToken.id) {
-        this.currentUser = new BehaviorSubject<User | null>(null);
+        this.currentUser = new BehaviorSubject<User>({});
       } else {
-        this.currentUser = new BehaviorSubject<User | null>({
+        this.currentUser = new BehaviorSubject<User>({
           id: decodedToken.id,
           role: decodedToken.role as Role,
           username: decodedToken['sub']
         })
       }
+
+      this.userObservable = this.currentUser.asObservable();
     }
+  }
+
+  get getUserObservable(): Observable<User> {
+    return this.userObservable;
   }
 
   get currentUserValue(): User | null {
@@ -87,16 +94,24 @@ export class AuthService {
   }
 
   logout() {
-    this.currentUser = new BehaviorSubject<User | null>(null);
-    this.cookieService.delete('access_token');
+    this.currentUser = new BehaviorSubject<User>({});
+    this.cookieService.delete('access_token', '/');
     this.router.navigate(['login']);
   }
 
-  getClient(id: number): Observable<Client>{
-    return this.http.get<Client>(`${this.baseUrl}/client/${id}`);
+  getClient(username: string): Observable<Client>{
+    return this.http.get<Client>(`${this.baseUrl}/client/${username}`);
   }
 
-  getPetShelter(id: number): Observable<PetShelter>{
-    return this.http.get<PetShelter>(`${this.baseUrl}/pet-shelter/${id}`);
+  getPetShelter(username: string): Observable<PetShelter>{
+    return this.http.get<PetShelter>(`${this.baseUrl}/pet-shelter/${username}`);
+  }
+
+  updateClient(username: string, client: Client): Observable<Client> {
+    return this.http.put<Client>(`${this.baseUrl}/client/${username}`, client);
+  }
+
+  updatePetShelter(username: string, petShelter: PetShelter): Observable<PetShelter> {
+    return this.http.put<PetShelter>(`${this.baseUrl}/pet-shelter/${username}`, petShelter);
   }
 }

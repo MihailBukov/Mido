@@ -24,7 +24,7 @@
 
   <div class="buttons" *ngIf="ad.createdBy != currentUser?.username">
     <button id="leaveCommentBtn" (click)="activateCommentForm()">Leave a Comment</button>
-    <button (click)="viewProfile(ad.createdBy)" id="viewProfileBtn">View User's Profile</button>
+    <button (click)="viewProfile(ad.createdBy, this.ad.createdByRole)" id="viewProfileBtn">View User's Profile</button>
   </div>
 
   <div class="comment-form" *ngIf="commentFormActivated">

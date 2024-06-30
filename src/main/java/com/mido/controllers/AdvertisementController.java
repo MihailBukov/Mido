@@ -4,7 +4,9 @@ import com.mido.dtos.AdvertisementDto;
 import com.mido.dtos.requests.AdvertisementRequest;
 import com.mido.mappers.AdvertisementMapper;
 import com.mido.models.Advertisement;
+import com.mido.models.User;
 import com.mido.services.AdvertisementService;
+import com.mido.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.List;
 public class AdvertisementController {
 
     private final AdvertisementService adService;
+
+    private final UserService userService;
 
     private final AdvertisementMapper adMapper;
 
@@ -55,6 +59,8 @@ public class AdvertisementController {
         }
 
         AdvertisementDto adDto = adMapper.adToAdDto(ad);
+        User creator = userService.loadUserByUsername(ad.getCreatedBy());
+        adDto.setCreatedByRole(creator.getRole());
         return new ResponseEntity<>(adDto, HttpStatus.OK);
     }
 

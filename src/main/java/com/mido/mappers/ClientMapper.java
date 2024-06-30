@@ -10,4 +10,6 @@ public interface ClientMapper {
     Client registerRequestToClient(RegisterRequest obj);
 
     ClientDto clientToClientDto(Client obj);
+
+    Client clientDtoToClient(ClientDto obj);
 }

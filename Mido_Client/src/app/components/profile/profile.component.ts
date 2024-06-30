@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   username: string = '';
   role!: string;
   client!: Client;
-  petShelter!: PetShelter;
+  petShelter: PetShelter;
   comment: UserComment = {} as UserComment;
   rating: UserRating = {} as UserRating;
   impressionFormActivated: boolean = false;
@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
   comments: UserComment[] = [];
   ratings: UserRating[] = [];
   avarageRating: number;
+  editMode: boolean = false;
+  profileForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -46,34 +48,36 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.authService.currentUserValue;
     this.username = this.route.snapshot.params['username'];
+    this.role = this.route.snapshot.params['role'];
 
-    if (this.username != this.currentUser?.username) {
-      this.authService.getUserByUsername(this.username).subscribe({
-        next: (response: User) => {
-          this.role = !!response.role ? response.role.toString() : '';
-        },
-        error: () => {
-          
-        }
-      });
-    } else {
-      this.role = !!this.currentUser?.role ? this.currentUser?.role.toString() : '';
-    }
+    this.profileForm = this.fb.group({
+      firstName: [''],
+      middleName: [''],
+      lastName: [''],
+      age: [''],
+      country: [''],
+      city: [''],
+      description: [''],
+      name: [''],
+      capacity: [''],
+      address: ['']
+    });
 
-    const id = !!this.currentUser?.id ? this.currentUser.id : 0;
     if (this.role === 'CLIENT') {
-      this.authService.getClient(id).subscribe({
+      this.authService.getClient(this.username).subscribe({
         next: (response) => {
           this.client = response;
+          this.profileForm.patchValue(response);
         },
         error: () => {
 
         }
       });
     } else {
-      this.authService.getPetShelter(id).subscribe({
+      this.authService.getPetShelter(this.username).subscribe({
         next: (response) => {
           this.petShelter = response;
+          this.profileForm.patchValue(response);
         },
         error: () => {
 
@@ -88,20 +92,19 @@ export class ProfileComponent implements OnInit {
       error: () => {
 
       }
-    })
+    });
 
     this.userRatingService.getAllRatings(this.username).subscribe({
       next: (response: UserRating[]) => {
         this.ratings = response;
+        this.avarageRating = this.ratings
+          .map(rating => rating.rating)
+          .reduce((acc, rating) => acc + rating, 0) / this.ratings.length;
       },
       error: () => {
 
       }
-    })
-
-    this.avarageRating = this.ratings
-                          .map(rating => rating.rating)
-                          .reduce((acc, rating) => acc + rating, 0) / this.ratings.length ;
+    });
   }
 
   takeImpression() {
@@ -140,5 +143,33 @@ export class ProfileComponent implements OnInit {
 
   activateImpressionForm() {
     this.impressionFormActivated = !this.impressionFormActivated;
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  saveProfile() {
+    if (this.role === 'CLIENT') {
+      this.authService.updateClient(this.username, this.profileForm.value).subscribe({
+        next: (response) => {
+          this.client = response;
+          this.toggleEditMode();
+        },
+        error: (err) => {
+          console.error('Error updating client:', err);
+        }
+      });
+    } else {
+      this.authService.updatePetShelter(this.username, this.profileForm.value).subscribe({
+        next: (response) => {
+          this.petShelter = response;
+          this.toggleEditMode();
+        },
+        error: (err) => {
+          console.error('Error updating pet shelter:', err);
+        }
+      });
+    }
   }
 }

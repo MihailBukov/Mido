@@ -10,4 +10,6 @@ public interface PetShelterMapper {
     PetShelter registerRequestToPetShelter(RegisterRequest obj);
 
     PetShelterDto petShelterToPetShelterDto(PetShelter obj);
+
+    PetShelter petShelterDtoToPetShelter(PetShelterDto obj);
 }
