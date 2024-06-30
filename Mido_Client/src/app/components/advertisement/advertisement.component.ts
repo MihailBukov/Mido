@@ -3,6 +3,9 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Advertisement } from 'src/app/models/Advertisement';
 import { AdvertisementComment } from 'src/app/models/AdvertisementComment';
+import { Client } from 'src/app/models/Client';
+import { PetShelter } from 'src/app/models/PetShelter';
+import { Role } from 'src/app/models/Role';
 import { User } from 'src/app/models/User';
 import { AdvertisementCommentService } from 'src/app/services/advertisement-comment.service';
 import { AdvertisementService } from 'src/app/services/advertisement.service';
@@ -36,7 +39,7 @@ export class AdvertisementComponent implements OnInit {
         this.ad = response;
       },
       error: () => {
-        // handle error
+
       }
     });
 

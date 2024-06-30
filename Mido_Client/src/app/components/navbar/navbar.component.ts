@@ -12,10 +12,8 @@ export class NavbarComponent {
   role: string | undefined = '';
 
   constructor(private router: Router, private authService: AuthService) {
-    this.authService.getUserObservable.subscribe( (user) => {
-      this.username = user.username;
-      this.role = user.role;
-    })
+    this.username = this.authService.currentUserValue?.username;
+    this.role = this.authService.currentUserValue?.role;
   }
 
   isLoggedIn(): boolean {
